@@ -74,61 +74,102 @@ export default function Home() {
     <main className="min-h-screen relative">
       <InteractiveBackground />
 
-      {/* Navigation - Add glass effect */}
-      <motion.nav 
+      {/* Top Logo */}
+      <motion.div 
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 50 }}
         className="fixed w-full bg-background/60 backdrop-blur-md border-b border-secondary/50 z-50"
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-center">
           <Link href="/" className="font-mono text-lg font-bold hover:text-accent transition-colors">OOTM</Link>
-          
-          {/* Mobile Menu Button */}
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 hover:text-accent transition-colors"
-          >
-            <span className="sr-only">Menu</span>
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-            </svg>
-          </button>
+        </div>
+      </motion.div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8 font-mono text-sm">
+      {/* Responsive Navigation */}
+      <motion.nav 
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 50 }}
+        className="fixed bottom-0 left-0 right-0 md:bottom-8 md:left-1/2 md:-translate-x-1/2 z-50"
+      >
+        {/* Mobile Navigation */}
+        <div className="md:hidden w-full bg-background/80 backdrop-blur-md border-t border-secondary/50">
+          <div className="flex justify-around items-center h-16 px-4">
             {['about', 'projects', 'contact'].map((item) => (
-              <Link 
+              <motion.div
                 key={item}
-                href={`#${item}`} 
-                className="hover:text-accent transition-colors relative group"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative"
               >
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-              </Link>
+                <Link 
+                  href={`#${item}`} 
+                  className="group relative block px-3 py-2"
+                >
+                  <span className="relative font-mono text-xs capitalize text-text/80 group-hover:text-accent transition-colors">
+                    {item}
+                  </span>
+                  <motion.div
+                    className="absolute -bottom-1 left-0 w-full h-0.5 bg-accent"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        <motion.div 
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: isMenuOpen ? 1 : 0, height: isMenuOpen ? 'auto' : 0 }}
-          className="md:hidden bg-background/95 backdrop-blur-sm border-b border-secondary"
-        >
-          <div className="px-4 py-4 space-y-4 font-mono text-sm">
-            {['about', 'projects', 'contact'].map((item) => (
-              <Link 
-                key={item}
-                href={`#${item}`} 
-                className="block hover:text-accent transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item}
-              </Link>
-            ))}
+        {/* Desktop Navigation */}
+        <div className="hidden md:block">
+          <div className="relative">
+            {/* Background Glow */}
+            <div className="absolute inset-0 bg-accent/10 blur-2xl rounded-full" />
+            
+            {/* Navigation Container */}
+            <div className="relative bg-background/80 backdrop-blur-md rounded-full border border-accent/20 shadow-lg p-2">
+              {/* Navigation Items */}
+              <div className="flex items-center space-x-2">
+                {['about', 'projects', 'contact'].map((item) => (
+                  <motion.div
+                    key={item}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="relative"
+                  >
+                    <Link 
+                      href={`#${item}`} 
+                      className="group relative block px-6 py-3 rounded-full overflow-hidden"
+                    >
+                      {/* Hover Background Effect */}
+                      <motion.div
+                        className="absolute inset-0 bg-accent/10"
+                        initial={{ scale: 0 }}
+                        whileHover={{ scale: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                      
+                      {/* Text */}
+                      <span className="relative font-mono text-sm capitalize text-text/80 group-hover:text-accent transition-colors">
+                        {item}
+                      </span>
+                      
+                      {/* Decorative Elements */}
+                      <motion.div
+                        className="absolute inset-0 border border-accent/20 rounded-full"
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        whileHover={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </motion.nav>
 
       {/* Hero Section - Add floating animation */}

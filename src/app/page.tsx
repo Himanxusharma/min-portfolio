@@ -4,8 +4,19 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import InteractiveBackground from '@/components/InteractiveBackground'
-import ProjectModal from '@/components/ProjectModal'
-import { Project } from '@/types'
+import ExperimentModal from '@/components/ExperimentModal'
+import { Experiment } from '@/types'
+
+// Simple hash function
+function generateHash(str: string): string {
+  let hash = 0
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i)
+    hash = ((hash << 5) - hash) + char
+    hash = hash & hash // Convert to 32-bit integer
+  }
+  return Math.abs(hash).toString(36) // Convert to base36 for shorter strings
+}
 
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
@@ -23,11 +34,11 @@ const staggerContainer = {
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [selectedExperiment, setSelectedExperiment] = useState<Experiment | null>(null)
 
-  const projects: Project[] = [
+  const experiments: Experiment[] = [
     {
-      id: 1,
+      id: generateHash("AI-Powered Assistant"),
       title: "AI-Powered Assistant",
       description: "An intelligent assistant that helps users with daily tasks using advanced natural language processing. The system learns from user interactions to provide increasingly personalized and accurate responses over time.",
       tech: ["Python", "TensorFlow", "GPT-3", "FastAPI", "Redis"],
@@ -41,7 +52,7 @@ export default function Home() {
       link: "https://github.com/ootm/ai-assistant"
     },
     {
-      id: 2,
+      id: generateHash("Smart Home Hub"),
       title: "Smart Home Hub",
       description: "A centralized IoT control system for managing all your smart home devices. Features an intuitive interface and powerful automation capabilities to create the perfect smart home experience.",
       tech: ["React", "Node.js", "MQTT", "WebSocket", "MongoDB"],
@@ -55,11 +66,11 @@ export default function Home() {
       link: "https://github.com/ootm/smart-home"
     },
     {
-      id: 3,
+      id: generateHash("Quantum Computing Sim"),
       title: "Quantum Computing Sim",
       description: "An educational simulator designed to help students and enthusiasts understand quantum computing principles through interactive visualizations and hands-on experiments.",
       tech: ["TypeScript", "Three.js", "WebAssembly", "Rust"],
-      status: "Experimental",
+      status: "Planned",
       features: [
         "Interactive quantum circuit builder",
         "Real-time quantum state visualization",
@@ -71,7 +82,7 @@ export default function Home() {
   ]
 
   return (
-    <main className="min-h-screen relative">
+    <main className="min-h-screen relative pb-16 md:pb-0">
       <InteractiveBackground />
 
       {/* Top Logo */}
@@ -91,12 +102,12 @@ export default function Home() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 50 }}
-        className="fixed bottom-0 left-0 right-0 md:bottom-8 md:left-1/2 md:-translate-x-1/2 z-50"
+        className="fixed bottom-0 left-0 right-0 md:bottom-8 z-50 flex justify-center"
       >
         {/* Mobile Navigation */}
         <div className="md:hidden w-full bg-background/80 backdrop-blur-md border-t border-secondary/50">
-          <div className="flex justify-around items-center h-16 px-4">
-            {['about', 'projects', 'contact'].map((item) => (
+          <div className="flex justify-around items-center h-16 px-4 max-w-lg mx-auto">
+            {['about', 'experiments', 'contact'].map((item) => (
               <motion.div
                 key={item}
                 whileHover={{ scale: 1.1 }}
@@ -132,7 +143,7 @@ export default function Home() {
             <div className="relative bg-background/80 backdrop-blur-md rounded-full border border-accent/20 shadow-lg p-2">
               {/* Navigation Items */}
               <div className="flex items-center space-x-2">
-                {['about', 'projects', 'contact'].map((item) => (
+                {['about', 'experiments', 'contact'].map((item) => (
                   <motion.div
                     key={item}
                     whileHover={{ scale: 1.05 }}
@@ -230,12 +241,12 @@ export default function Home() {
                 always pushing the boundaries of what's possible.
               </p>
             </motion.div>
-          </div>
+        </div>
         </motion.div>
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-16 px-4 sm:px-6 relative animate-gradient">
+      <section id="experiments" className="py-16 px-4 sm:px-6 relative animate-gradient">
         <motion.div 
           initial="initial"
           whileInView="animate"
@@ -250,36 +261,36 @@ export default function Home() {
             Latest Experiments
           </motion.h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
-            {projects.map((project) => (
+            {experiments.map((experiment) => (
               <motion.div 
-                key={project.id}
+                key={experiment.id}
                 variants={fadeIn}
                 whileHover={{ scale: 1.02 }}
-                onClick={() => setSelectedProject(project)}
+                onClick={() => setSelectedExperiment(experiment)}
                 className="group cursor-pointer bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden border border-secondary/10 hover:border-accent/20 transition-all duration-300"
               >
                 <div className="aspect-square bg-secondary/30 mb-4 overflow-hidden relative">
                   <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-accent/5 to-transparent">
-                    <span className="font-mono text-5xl sm:text-6xl text-accent/20">0{project.id}</span>
+                    <span className="font-mono text-5xl sm:text-6xl text-accent/20">0{experiment.id}</span>
                   </div>
                   <div className="absolute top-4 right-4">
                     <span className={`px-3 py-1 rounded-full text-xs font-mono
-                      ${project.status === 'Completed' ? 'bg-green-500/10 text-green-500' : 
-                        project.status === 'In Progress' ? 'bg-yellow-500/10 text-yellow-500' :
+                      ${experiment.status === 'Completed' ? 'bg-green-500/10 text-green-500' : 
+                        experiment.status === 'In Progress' ? 'bg-yellow-500/10 text-yellow-500' :
                         'bg-purple-500/10 text-purple-500'}`}>
-                      {project.status}
+                      {experiment.status}
                     </span>
                   </div>
                 </div>
                 <div className="p-4">
                   <h3 className="font-mono text-base sm:text-lg mb-2 group-hover:text-accent transition-colors">
-                    {project.title}
+                    {experiment.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-text/60 mb-4">
-                    {project.description.split('.')[0]}.
+                    {experiment.description.split('.')[0]}.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {project.tech.slice(0, 3).map((tech, index) => (
+                    {experiment.tech.slice(0, 3).map((tech, index) => (
                       <span 
                         key={index}
                         className="text-xs px-2 py-1 rounded-md bg-secondary/20 text-text/70 font-mono"
@@ -287,9 +298,9 @@ export default function Home() {
                         {tech}
                       </span>
                     ))}
-                    {project.tech.length > 3 && (
+                    {experiment.tech.length > 3 && (
                       <span className="text-xs px-2 py-1 rounded-md bg-secondary/20 text-text/70 font-mono">
-                        +{project.tech.length - 3}
+                        +{experiment.tech.length - 3}
                       </span>
                     )}
                   </div>
@@ -336,7 +347,7 @@ export default function Home() {
       </section>
 
       {/* Footer - Add subtle gradient */}
-      <footer className="py-6 sm:py-8 px-4 sm:px-6 border-t border-secondary/50 bg-gradient-to-t from-secondary/5 to-transparent">
+      <footer className="py-6 sm:py-8 px-4 sm:px-6 border-t border-secondary/50 bg-gradient-to-t from-secondary/5 to-transparent relative z-30">
         <motion.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -362,9 +373,9 @@ export default function Home() {
       </footer>
 
       {/* Modal */}
-      <ProjectModal 
-        project={selectedProject} 
-        onClose={() => setSelectedProject(null)} 
+      <ExperimentModal
+        experiment={selectedExperiment}
+        onClose={() => setSelectedExperiment(null)}
       />
     </main>
   )

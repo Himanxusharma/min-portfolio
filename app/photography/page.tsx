@@ -158,6 +158,9 @@ export default function Photography() {
                     src={photo.src}
                     alt={photo.alt}
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110 group-hover:contrast-110"
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   
                   {/* Enhanced Gradient Overlay */}
@@ -231,40 +234,6 @@ export default function Photography() {
             </div>
           </div>
 
-          {/* Minification Optimizations Section */}
-          <div className="mt-16 sm:mt-20 mb-8 sm:mb-12">
-            <div className="text-center mb-8 sm:mb-12">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-foreground mb-4 sm:mb-6">
-                🎯 Minification Optimizations
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
-                <div className="bg-card/30 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-border/20 hover:border-primary/30 transition-all duration-300">
-                  <h3 className="text-sm sm:text-base font-medium text-foreground mb-2">Image Optimization</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground">Next.js automatic image optimization</p>
-                </div>
-                <div className="bg-card/30 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-border/20 hover:border-primary/30 transition-all duration-300">
-                  <h3 className="text-sm sm:text-base font-medium text-foreground mb-2">Minification</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground">Automatic minification by Next.js</p>
-                </div>
-                <div className="bg-card/30 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-border/20 hover:border-primary/30 transition-all duration-300">
-                  <h3 className="text-sm sm:text-base font-medium text-foreground mb-2">CSS Optimization</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground">Tailwind purging unused styles</p>
-                </div>
-                <div className="bg-card/30 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-border/20 hover:border-primary/30 transition-all duration-300">
-                  <h3 className="text-sm sm:text-base font-medium text-foreground mb-2">Font Optimization</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground">Google Fonts with next/font integration</p>
-                </div>
-                <div className="bg-card/30 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-border/20 hover:border-primary/30 transition-all duration-300">
-                  <h3 className="text-sm sm:text-base font-medium text-foreground mb-2">Lazy Loading</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground">Images load on demand</p>
-                </div>
-                <div className="bg-card/30 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-border/20 hover:border-primary/30 transition-all duration-300">
-                  <h3 className="text-sm sm:text-base font-medium text-foreground mb-2">Production Builds</h3>
-                  <p className="text-xs sm:text-sm text-muted-foreground">Automatic minification in production</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -294,6 +263,9 @@ export default function Photography() {
                   width: 'auto',
                   height: 'auto'
                 }}
+                loading="eager"
+                decoding="async"
+                sizes="95vw"
               />
               {/* Decorative border glow */}
               <div className="absolute inset-0 rounded-lg border-2 border-transparent group-hover:border-white/20 group-hover:shadow-lg group-hover:shadow-white/10 transition-all duration-500" />

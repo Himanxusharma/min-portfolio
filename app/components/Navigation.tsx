@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import ThemeToggle from './ThemeToggle'
 import { Menu, X, Sparkles } from 'lucide-react'
 
 const navigation = [
@@ -65,6 +66,11 @@ export default function Navigation() {
                 <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:left-0 group-hover:w-full" />
               </Link>
             ))}
+            
+            {/* Theme Toggle */}
+            <div className="ml-4">
+              <ThemeToggle />
+            </div>
           </div>
 
           {/* Mobile menu button with creative animation */}
@@ -103,6 +109,11 @@ export default function Navigation() {
                   <div className="ml-auto w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-8" />
                 </Link>
               ))}
+              
+              {/* Theme Toggle for Mobile */}
+              <div className="px-4 py-3 flex justify-center">
+                <ThemeToggle />
+              </div>
             </div>
           </div>
         )}

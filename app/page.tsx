@@ -80,6 +80,47 @@ export default function Home() {
                 {isTyping && <span className="animate-pulse">|</span>}
               </p>
               
+              {/* Photo Section */}
+              <div 
+                className="flex justify-center mt-12 mb-8"
+                style={{
+                  transform: `translateY(${-scrollY * 0.08}px)`,
+                  transition: 'transform 0.1s ease-out'
+                }}
+              >
+                <div className="relative group cursor-pointer">
+                  {/* Outer ring animation */}
+                  <div className="absolute inset-0 rounded-full border-2 border-transparent group-hover:border-primary/30 transition-all duration-500 group-hover:scale-110" />
+                  
+                  {/* Main photo container */}
+                  <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-2 border-border/20 group-hover:border-primary/50 transition-all duration-500 group-hover:scale-110 group-hover:shadow-2xl group-hover:shadow-primary/20">
+                    <img 
+                      src="/himanshu-photo.png" 
+                      alt="Himanshu Sharma" 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:brightness-110"
+                    />
+                    
+                    {/* Overlay effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-primary/0 to-primary/20 opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                  </div>
+                  
+                  {/* Floating particles effect */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-2 right-2 w-1 h-1 bg-primary/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500" style={{ animationDelay: '0.1s' }} />
+                    <div className="absolute bottom-3 left-3 w-1 h-1 bg-accent/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500" style={{ animationDelay: '0.3s' }} />
+                    <div className="absolute top-1/2 left-1 w-1 h-1 bg-primary/40 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500" style={{ animationDelay: '0.5s' }} />
+                  </div>
+                  
+                  {/* Subtle glow effect */}
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm group-hover:blur-md" />
+                  
+                  {/* Hover text */}
+                  <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <span className="text-xs text-muted-foreground font-light">That's me!</span>
+                  </div>
+                </div>
+              </div>
+              
               {/* CTA Buttons */}
               <div 
                 className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"

@@ -36,7 +36,31 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       className="group relative w-10 h-10 rounded-full bg-background/50 backdrop-blur-sm border border-border/30 hover:border-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/10 flex items-center justify-center"
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      title={theme === 'light' ? 'Welcome to the dark side' : 'I want some light!!!'}
     >
+      {/* Tooltip with creative animation */}
+      <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-background/95 backdrop-blur-md border border-border/40 rounded-xl text-xs text-foreground opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50 shadow-2xl group-hover:scale-105">
+        <span className="font-light flex items-center space-x-1">
+          {theme === 'light' ? (
+            <>
+              <span>Welcome to the dark side</span>
+              <svg className="w-3 h-3 text-yellow-500 animate-spin" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L8 6h8L12 2zm0 20l4-4H8l4 4zm8-8v8h-8l4-4V6h8v8zM4 12v8h8l-4 4H4V12zm0-6h8L8 2H4v6zm16 0V4h-6l4 4h2z"/>
+              </svg>
+            </>
+          ) : (
+            <>
+              <svg className="w-3 h-3 text-yellow-500 animate-spin" fill="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" fill="none" />
+                <path d="M12 2L12 22M2 12L22 12M12 2L8 6L12 10M12 22L8 18L12 14M2 12L6 8L10 12M22 12L18 16L14 12Z" />
+              </svg>
+              <span>I want some light!!!</span>
+            </>
+          )}
+        </span>
+        {/* Pointer with glow */}
+        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-background/95 border-r border-b border-border/40 rotate-45 shadow-lg" />
+      </div>
       {/* Sun Icon */}
       <svg
         className={`w-5 h-5 text-foreground transition-all duration-300 ${

@@ -141,15 +141,33 @@ export default function Home() {
               >
                 <a
                   href="/ideas"
-                  className="px-8 py-3 bg-foreground text-background font-light text-sm hover:bg-primary transition-all duration-200 transform hover:scale-105"
+                  className="group/btn relative px-8 py-3 bg-foreground text-background font-light text-sm hover:bg-primary transition-all duration-300 transform hover:scale-105 overflow-hidden"
                 >
-                  Explore Ideas
+                  {/* Shimmer effect on hover */}
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000" />
+                  
+                  {/* Content */}
+                  <span className="relative z-10 flex items-center space-x-2">
+                    <span>Explore Ideas</span>
+                    <svg className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </span>
                 </a>
                 <a
                   href="/contact"
-                  className="px-8 py-3 border border-border text-foreground font-light text-sm hover:bg-accent transition-all duration-200 transform hover:scale-105"
+                  className="group/btn relative px-8 py-3 border border-border text-foreground font-light text-sm hover:bg-accent transition-all duration-300 transform hover:scale-105 overflow-hidden"
                 >
-                  Get in Touch
+                  {/* Animated border */}
+                  <div className="absolute inset-0 border-2 border-primary/0 group-hover/btn:border-primary/50 transition-colors duration-300" />
+                  
+                  {/* Content */}
+                  <span className="relative z-10 flex items-center space-x-2">
+                    <span>Get in Touch</span>
+                    <svg className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </span>
                 </a>
               </div>
 

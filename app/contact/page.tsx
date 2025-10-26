@@ -31,31 +31,31 @@ export default function Contact() {
               
               <div className="space-y-4">
                 <a
-                  href="mailto:hello@himanshusharma.dev"
+                  href="mailto:himanxusharmaa@gmail.com"
                   className="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   <Mail size={20} />
-                  <span>hello@himanshusharma.dev</span>
+                  <span>himanxusharmaa@gmail.com</span>
                 </a>
                 
                 <a
-                  href="https://github.com/himanshusharma"
+                  href="https://github.com/Himanxusharma"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   <Github size={20} />
-                  <span>github.com/himanshusharma</span>
+                  <span>github.com/Himanxusharma</span>
                 </a>
                 
                 <a
-                  href="https://linkedin.com/in/himanshusharma"
+                  href="https://www.linkedin.com/in/himanshusharma08/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-3 text-muted-foreground hover:text-foreground transition-colors duration-200"
                 >
                   <Linkedin size={20} />
-                  <span>linkedin.com/in/himanshusharma</span>
+                  <span>linkedin.com/in/himanshusharma08</span>
                 </a>
               </div>
             </div>

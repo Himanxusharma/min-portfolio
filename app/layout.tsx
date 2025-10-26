@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
+import DynamicTitle from './components/DynamicTitle'
 
 const inter = Inter({
   variable: '--font-geist-sans',
@@ -13,7 +14,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Himanshu Sharma - Designer & Developer',
+  title: '✨ Himanshu Sharma - Designer & Developer',
   description: 'This is how I think. A minimal portfolio showcasing design and development work.',
   keywords: ['portfolio', 'designer', 'developer', 'creative', 'minimal'],
   authors: [{ name: 'Himanshu Sharma' }],
@@ -54,6 +55,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
+        <DynamicTitle />
         {children}
       </body>
     </html>

@@ -2,10 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import Navigation from '../components/Navigation'
+import { getAllPhotos, getCategories } from '../data/photography'
 
 export default function Photography() {
   const [scrollY, setScrollY] = useState(0)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,43 +41,20 @@ export default function Photography() {
     }
   }, [selectedImage])
 
-  const photos = [
-    { 
-      id: 1, 
-      src: '/images/photography/IMG1.png', 
-      alt: 'Art of Capturing',
-      title: 'Art of Capturing',
-      description: 'Hands raised in silent devotion to the digital record, eyes fixed on the fleeting spectacle; The true art of clicking is in freezing the pulse of a shared, vibrant now.'
-    },
-    {
-      id: 2,
-      src: '/images/photography/IMG2.png',
-      alt: 'Beauty of night',
-      title: 'Beauty of night',
-      description: 'The silent fortress of the Keylong mountains stands as a stark, black silhouette against the night. A low, powerful light source casts a dramatic, hazy glow across the atmosphere, illuminating the sky while the peaks remain in profound shadow. It is a moment where starlight and scattered radiance meet, dividing the world into layers of darkness and ethereal light.'
-    },
-    { 
-      id: 3, 
-      src: '/images/photography/IMG3.png', 
-      alt: 'The Unmoving Witness',
-      title: 'The Unmoving Witness',
-      description: 'Perched on the edge, a wild sentinel quietly judges the human spectacle below. he is the timeless native watching the ritual flow of the sacred Ganges. The scene juxtaposes the ancient, stoic mountain range with the fleeting devotional chaos of the bustling ghats.'
-    },
-    { 
-      id: 4, 
-      src: '/images/photography/IMG4.png', 
-      alt: 'Neon Collision',
-      title: 'Neon Collision',
-      description: 'A visceral clash of color as intense, geometric blue laser beams collide with broad, warm orange spotlights. The atmosphere is a high-energy fusion of light and sound, creating a dense, electrified matrix that captures the sensory peak of the night.'
-    },
-    { 
-      id: 5, 
-      src: '/images/photography/IMG5.png', 
-      alt: 'A Million Quiet Stories',
-      title: 'A Million Quiet Stories',
-      description: 'From the elevation of Nahargarh Fort, the Jaipur night unfolds as an immense, glittering darkness. The dense grid of scattered lights is a canvas of human experience, where every single flickering bulb is a tiny, glowing vessel for a different, secret emotion under the vast, silent sky.'
-    },
-  ]
+  const allPhotos = getAllPhotos()
+  const categories = getCategories()
+
+  // Filter photos based on search query and category
+  const filteredPhotos = allPhotos.filter(photo => {
+    const matchesSearch = photo.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         photo.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         photo.location?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         photo.tags?.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+    
+    const matchesCategory = !selectedCategory || photo.category === selectedCategory
+    
+    return matchesSearch && matchesCategory
+  })
 
   return (
     <main className="min-h-screen bg-background">
@@ -135,10 +115,111 @@ export default function Photography() {
               </svg>
             </div>
           </div>
+
+          {/* Search and Filter Section */}
+          <div className="mb-8 sm:mb-12 relative">
+            <div className="max-w-4xl mx-auto">
+              {/* Search Bar */}
+              <div className="relative mb-6">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search photos by title, description, or location..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl focus:border-primary/50 focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 text-sm sm:text-base"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-muted-foreground hover:text-foreground transition-colors duration-200"
+                  >
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+
+              {/* Filter Pills */}
+              <div className="flex flex-wrap gap-2 sm:gap-3 mb-6">
+                {/* Category Filter */}
+                <div className="relative">
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="appearance-none bg-background/60 backdrop-blur-md border border-border/40 rounded-full px-4 py-2 pr-8 text-sm focus:border-primary/50 focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 cursor-pointer"
+                  >
+                    <option value="">All Categories</option>
+                    {categories.map(category => (
+                      <option key={category} value={category}>{category}</option>
+                    ))}
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <svg className="h-4 w-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Clear Filters */}
+                {(searchQuery || selectedCategory) && (
+                  <button
+                    onClick={() => {
+                      setSearchQuery('')
+                      setSelectedCategory('')
+                    }}
+                    className="px-4 py-2 bg-muted/20 hover:bg-muted/30 text-muted-foreground hover:text-foreground rounded-full text-sm transition-all duration-300 flex items-center space-x-1"
+                  >
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <span>Clear</span>
+                  </button>
+                )}
+              </div>
+
+              {/* Results Count */}
+              <div className="text-center mb-6">
+                <p className="text-sm text-muted-foreground">
+                  {filteredPhotos.length === allPhotos.length 
+                    ? `Showing all ${allPhotos.length} photos`
+                    : `Showing ${filteredPhotos.length} of ${allPhotos.length} photos`
+                  }
+                </p>
+              </div>
+            </div>
+          </div>
           
-          {/* Photo Gallery */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
-            {photos.map((photo, index) => (
+          {/* Photo Gallery or No Results */}
+          {filteredPhotos.length === 0 ? (
+            <div className="text-center py-12 sm:py-16">
+              <div className="max-w-md mx-auto">
+                <svg className="w-16 h-16 sm:w-20 sm:h-20 text-muted-foreground mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <h3 className="text-lg sm:text-xl font-medium text-foreground mb-2">No photos found</h3>
+                <p className="text-muted-foreground mb-6">
+                  Try adjusting your search terms or filters to find what you're looking for.
+                </p>
+                <button
+                  onClick={() => {
+                    setSearchQuery('')
+                    setSelectedCategory('')
+                  }}
+                  className="px-6 py-3 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 hover:border-primary/50 rounded-lg font-medium transition-all duration-300 hover:scale-105"
+                >
+                  Clear all filters
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+              {filteredPhotos.map((photo, index) => (
               <div
                 key={photo.id}
                 className="group cursor-pointer relative overflow-hidden rounded-xl sm:rounded-2xl bg-background/50 backdrop-blur-sm border border-border/30 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2"
@@ -218,8 +299,9 @@ export default function Photography() {
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
           
           {/* Creative Section Divider */}
           <div className="mt-12 sm:mt-16 md:mt-20 mb-6 sm:mb-8 md:mb-12">
@@ -273,7 +355,7 @@ export default function Photography() {
             
             {/* Enhanced Photo Info */}
             {(() => {
-              const selectedPhoto = photos.find(photo => photo.src === selectedImage);
+              const selectedPhoto = allPhotos.find(photo => photo.src === selectedImage);
               return selectedPhoto ? (
                 <div className="text-center text-white max-w-xs sm:max-w-lg md:max-w-2xl px-2 sm:px-4">
                   <h3 className="text-lg sm:text-xl md:text-2xl font-light mb-2 sm:mb-3 relative">

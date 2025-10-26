@@ -50,14 +50,14 @@ export default function Navigation() {
     >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-            {/* Logo with Photo (on non-home pages) */}
+            {/* Logo with Photo (on non-home pages, mobile navbar when menu is closed) */}
             <div className="flex items-center space-x-2 sm:space-x-3">
-              {isNotHomePage && (
+              {isNotHomePage && !isOpen && (
                 <Link
                   href="/"
                   className="group relative"
                 >
-                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300">
+                  <div className="relative w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300">
                     <Image
                       src="/himanshu-photo.png"
                       alt="Himanshu Sharma"
@@ -134,19 +134,19 @@ export default function Navigation() {
         {isOpen && (
           <div className="md:hidden overflow-hidden">
             <div className="px-2 pb-2 pt-3 space-y-1 bg-background/95 backdrop-blur-xl border-b border-border/50 rounded-t-2xl shadow-lg">
-              {/* Photo in Mobile Menu (on non-home pages) */}
-              {isNotHomePage && (
-                <div className="flex justify-center px-4 py-3">
+              {/* Photo in Mobile Menu (on non-home pages, only when menu is open) */}
+              {isNotHomePage && isOpen && (
+                <div className="flex justify-center px-4 py-4 mb-2">
                   <Link
                     href="/"
                     className="group relative"
                   >
-                    <div className="relative w-16 h-16 rounded-full overflow-hidden ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300">
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300">
                       <Image
                         src="/himanshu-photo.png"
                         alt="Himanshu Sharma"
-                        width={64}
-                        height={64}
+                        width={96}
+                        height={96}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
                       <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

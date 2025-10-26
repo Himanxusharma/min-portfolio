@@ -165,7 +165,7 @@ export default function Journey() {
 
           {/* Education Cards */}
           <div className="mb-12 sm:mb-16 md:mb-20">
-            <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <div className="text-center mb-6 sm:mb-12 md:mb-16">
               <h2 className="text-lg sm:text-xl md:text-2xl font-light text-foreground mb-3 sm:mb-4">Education</h2>
               <div className="w-12 sm:w-16 md:w-24 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
             </div>
@@ -178,7 +178,7 @@ export default function Journey() {
                   onMouseEnter={() => setActiveItem(index + 10)}
                   onMouseLeave={() => setActiveItem(-1)}
                   style={{
-                    transform: `translateY(${-scrollY * 0.05}px)`,
+                    transform: `translateY(${-scrollY * 0.02}px)`,
                     transition: 'transform 0.1s ease-out',
                     animationDelay: `${index * 200}ms`
                   }}

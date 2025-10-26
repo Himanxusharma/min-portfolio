@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import DynamicTitle from './components/DynamicTitle'
+import Favicon from './components/Favicon'
 
 const inter = Inter({
   variable: '--font-geist-sans',
@@ -19,6 +20,10 @@ export const metadata: Metadata = {
   keywords: ['portfolio', 'designer', 'developer', 'creative', 'minimal'],
   authors: [{ name: 'Himanshu Sharma' }],
   creator: 'Himanshu Sharma',
+  icons: {
+    icon: '/himanshu-photo.png',
+    apple: '/himanshu-photo.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -55,6 +60,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
+        <Favicon />
         <DynamicTitle />
         {children}
       </body>

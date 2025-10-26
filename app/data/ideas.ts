@@ -2,6 +2,7 @@ export interface Idea {
     id: string;
     name: string;
     sector: string;
+    status: 'ideation' | 'brainstorming' | 'building' | 'live';
     problemStatement: string;
     solution: string;
     whyItMatters: string;
@@ -17,6 +18,7 @@ export const ideas: Idea[] = [
         id: 'parkshare',
         name: 'ParkShare',
         sector: 'MobilityTech',
+        status: 'ideation',
         problemStatement: 'In cities, drivers waste time and fuel searching for parking, while thousands of private driveways, office lots, and residential spaces sit unused. There\'s no unified platform for people to rent out idle parking spaces or for drivers to book affordable parking on demand.',
         solution: 'ParkShare is a peer-to-peer parking marketplace that connects parking spot owners with drivers. Owners can list and monetize their unused spaces, while drivers can discover, book, and pay for parking through a live, map-based app — fast, secure, and convenient.',
         whyItMatters: 'Efficient parking saves time, fuel, and stress for drivers, reduces congestion in crowded areas, and creates a new source of passive income for individuals and businesses — contributing to smarter, more sustainable cities.',
@@ -30,6 +32,7 @@ export const ideas: Idea[] = [
         id: 'smart-urban-gardening',
         name: 'Smart Urban Gardening',
         sector: 'AgTech',
+        status: 'ideation',
         problemStatement: 'Urban dwellers struggle to grow fresh produce in limited spaces with inconsistent results.',
         solution: 'AI-powered vertical gardening system with automated care and real-time guidance.',
         whyItMatters: 'Reduces food costs, improves nutrition, and promotes sustainable living in urban environments.',
@@ -43,6 +46,7 @@ export const ideas: Idea[] = [
         id: 'mental-health-companion',
         name: 'Mental Health Companion',
         sector: 'HealthTech',
+        status: 'ideation',
         problemStatement: 'Many people struggle with mental health in isolation, lacking accessible and personalized support.',
         solution: 'AI-powered mental health companion that provides 24/7 emotional support and personalized wellness guidance.',
         whyItMatters: 'Improves mental health accessibility, reduces stigma, and provides immediate support when needed most.',
@@ -56,6 +60,7 @@ export const ideas: Idea[] = [
         id: 'sustainable-fashion-platform',
         name: 'Sustainable Fashion Platform',
         sector: 'FashionTech',
+        status: 'ideation',
         problemStatement: 'Fast fashion creates massive waste and environmental damage, while consumers want sustainable options but struggle to find them.',
         solution: 'A marketplace connecting consumers with verified sustainable fashion brands and providing transparency in supply chains.',
         whyItMatters: 'Reduces fashion waste, supports ethical brands, and educates consumers about sustainable choices.',
@@ -69,6 +74,7 @@ export const ideas: Idea[] = [
         id: 'remote-learning-optimizer',
         name: 'Remote Learning Optimizer',
         sector: 'EdTech',
+        status: 'ideation',
         problemStatement: 'Students struggle with focus and engagement in remote learning environments, leading to decreased academic performance.',
         solution: 'AI-powered learning platform that adapts to individual learning styles and optimizes the remote learning experience.',
         whyItMatters: 'Improves learning outcomes, increases engagement, and makes education more accessible and personalized.',
@@ -82,6 +88,7 @@ export const ideas: Idea[] = [
         id: 'community-waste-reduction',
         name: 'Community Waste Reduction',
         sector: 'CleanTech',
+        status: 'live',
         problemStatement: 'Communities generate excessive waste with limited recycling and reuse opportunities, leading to environmental degradation.',
         solution: 'Community-driven platform that connects neighbors for waste sharing, recycling, and upcycling initiatives.',
         whyItMatters: 'Reduces landfill waste, builds community connections, and promotes circular economy principles at the local level.',

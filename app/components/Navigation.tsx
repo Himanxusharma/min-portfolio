@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import ThemeToggle from './ThemeToggle'
 import { Menu, X, Sparkles } from 'lucide-react'
 
@@ -18,6 +20,16 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeLink, setActiveLink] = useState('')
+  const pathname = usePathname()
+  const isNotHomePage = pathname !== '/'
+  
+  // Function to check if a link is active
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return pathname === '/'
+    }
+    return pathname.startsWith(href)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,36 +48,64 @@ export default function Navigation() {
           : 'bg-background/95 backdrop-blur-md border-t border-border/30'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <Link
-              href="/"
-              className="group relative text-xl font-light text-foreground hover:text-primary transition-all duration-300"
-            >
-              <span>Himanshu Sharma</span>
-              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-full" />
-            </Link>
+            {/* Logo with Photo (on non-home pages) */}
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              {isNotHomePage && (
+                <Link
+                  href="/"
+                  className="group relative"
+                >
+                  <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300">
+                    <Image
+                      src="/himanshu-photo.png"
+                      alt="Himanshu Sharma"
+                      width={40}
+                      height={40}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </Link>
+              )}
+              <Link
+                href="/"
+                className="group relative text-xl font-light text-foreground hover:text-primary transition-all duration-300"
+              >
+                <span>Himanshu Sharma</span>
+                <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-full" />
+              </Link>
+            </div>
 
           {/* Desktop Navigation with creative effects */}
           <div className="hidden md:flex items-center space-x-1">
-            {navigation.map((item, index) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="group relative px-4 py-2 text-sm font-light text-muted-foreground hover:text-foreground transition-all duration-300"
-                onMouseEnter={() => setActiveLink(item.name)}
-                onMouseLeave={() => setActiveLink('')}
-                style={{
-                  animationDelay: `${index * 100}ms`
-                }}
-              >
-                <span>{item.name}</span>
-                
-                {/* Animated underline */}
-                <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:left-0 group-hover:w-full" />
-              </Link>
-            ))}
+            {navigation.map((item, index) => {
+              const active = isActive(item.href)
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`group relative px-4 py-2 text-sm font-light transition-all duration-300 ${
+                    active 
+                      ? 'text-foreground font-medium' 
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  onMouseEnter={() => setActiveLink(item.name)}
+                  onMouseLeave={() => setActiveLink('')}
+                  style={{
+                    animationDelay: `${index * 100}ms`
+                  }}
+                >
+                  <span>{item.name}</span>
+                  
+                  {/* Hover underline - only when not active */}
+                  {!active && (
+                    <div className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:left-0 group-hover:w-full" />
+                  )}
+                </Link>
+              )
+            })}
             
             {/* Theme Toggle */}
             <div className="ml-4">
@@ -94,21 +134,50 @@ export default function Navigation() {
         {isOpen && (
           <div className="md:hidden overflow-hidden">
             <div className="px-2 pb-2 pt-3 space-y-1 bg-background/95 backdrop-blur-xl border-b border-border/50 rounded-t-2xl shadow-lg">
-              {navigation.map((item, index) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="group flex items-center px-4 py-3 text-base font-light text-muted-foreground hover:text-foreground transition-all duration-300"
-                  onClick={() => setIsOpen(false)}
-                  style={{
-                    animationDelay: `${index * 50}ms`,
-                    animation: 'slideInDown 0.3s ease-out forwards'
-                  }}
-                >
-                  <span>{item.name}</span>
-                  <div className="ml-auto w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-8" />
-                </Link>
-              ))}
+              {/* Photo in Mobile Menu (on non-home pages) */}
+              {isNotHomePage && (
+                <div className="flex justify-center px-4 py-3">
+                  <Link
+                    href="/"
+                    className="group relative"
+                  >
+                    <div className="relative w-16 h-16 rounded-full overflow-hidden ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300">
+                      <Image
+                        src="/himanshu-photo.png"
+                        alt="Himanshu Sharma"
+                        width={64}
+                        height={64}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </Link>
+                </div>
+              )}
+              {navigation.map((item, index) => {
+                const active = isActive(item.href)
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`group flex items-center px-4 py-3 text-base font-light transition-all duration-300 ${
+                      active 
+                        ? 'text-foreground font-medium bg-primary/5' 
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                    style={{
+                      animationDelay: `${index * 50}ms`,
+                      animation: 'slideInDown 0.3s ease-out forwards'
+                    }}
+                  >
+                    <span>{item.name}</span>
+                    {!active && (
+                      <div className="ml-auto w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-8" />
+                    )}
+                  </Link>
+                )
+              })}
               
               {/* Theme Toggle for Mobile */}
               <div className="px-4 py-3 flex justify-center">

@@ -12,6 +12,7 @@ import {
 export default function Journey() {
   const [scrollY, setScrollY] = useState(0)
   const [activeItem, setActiveItem] = useState(0)
+  const [tiltStyles, setTiltStyles] = useState<{[key: string]: {x: number, y: number}}>({})
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +28,31 @@ export default function Journey() {
   const technicalSkills = getTechnicalSkills()
   const resumeDownload = getResumeDownload()
 
+  // 3D tilt handlers
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
+    const card = e.currentTarget
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+    
+    const rotateX = (y - centerY) / 10 // Adjust tilt intensity
+    const rotateY = (centerX - x) / 10
+    
+    setTiltStyles(prev => ({
+      ...prev,
+      [id]: { x: rotateX, y: rotateY }
+    }))
+  }
+
+  const handleMouseLeave = (id: string) => {
+    setTiltStyles(prev => ({
+      ...prev,
+      [id]: { x: 0, y: 0 }
+    }))
+  }
 
   return (
     <main className="min-h-screen bg-background">
@@ -35,8 +61,18 @@ export default function Journey() {
       <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-20 sm:pb-24 md:pb-28 lg:pb-32 px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-foreground mb-3 sm:mb-4 md:mb-6">
-              Journey
+            <h1 
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-foreground mb-3 sm:mb-4 md:mb-6 relative"
+              style={{
+                transform: `translateY(${-scrollY * 0.08}px)`,
+                transition: 'transform 0.1s ease-out'
+              }}
+            >
+              <span className="relative inline-block">
+                Journey
+                <div className="absolute -bottom-1 sm:-bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-1000 group-hover:w-full" 
+                     style={{ width: `${Math.min(scrollY * 0.5, 100)}%` }} />
+              </span>
             </h1>
             <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-4">
               My path as a designer and developer, the challenges and milestones
@@ -81,7 +117,16 @@ export default function Journey() {
                   </div>
                   
                   {/* Enhanced content card - responsive padding and sizing */}
-                  <div className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group-hover:scale-105 group-hover:bg-background/80">
+                  <div 
+                    className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 group-hover:bg-background/80"
+                    onMouseMove={(e) => handleMouseMove(e, `exp-${index}`)}
+                    onMouseLeave={() => handleMouseLeave(`exp-${index}`)}
+                    style={{
+                      transform: `perspective(1000px) rotateX(${tiltStyles[`exp-${index}`]?.x || 0}deg) rotateY(${tiltStyles[`exp-${index}`]?.y || 0}deg) translateZ(0) scale(1.05)`,
+                      transformStyle: 'preserve-3d',
+                      transition: 'transform 0.2s ease-out'
+                    }}
+                  >
                     {/* Card glow effect */}
                     <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     
@@ -139,7 +184,16 @@ export default function Journey() {
                   }}
                 >
                   {/* Enhanced content card - responsive padding and sizing */}
-                  <div className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group-hover:scale-105 group-hover:bg-background/80 h-full">
+                  <div 
+                    className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 group-hover:bg-background/80 h-full"
+                    onMouseMove={(e) => handleMouseMove(e, `edu-${index}`)}
+                    onMouseLeave={() => handleMouseLeave(`edu-${index}`)}
+                    style={{
+                      transform: `perspective(1000px) rotateX(${tiltStyles[`edu-${index}`]?.x || 0}deg) rotateY(${tiltStyles[`edu-${index}`]?.y || 0}deg) translateZ(0) scale(1.05)`,
+                      transformStyle: 'preserve-3d',
+                      transition: 'transform 0.2s ease-out'
+                    }}
+                  >
                     {/* Card glow effect */}
                     <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     

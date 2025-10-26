@@ -10,6 +10,8 @@ export default function Ideas() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedSector, setSelectedSector] = useState('')
   const [selectedTag, setSelectedTag] = useState('')
+  const [selectedStatus, setSelectedStatus] = useState('')
+  const [tiltStyles, setTiltStyles] = useState<{[key: string]: {x: number, y: number}}>({})
   const router = useRouter()
 
   useEffect(() => {
@@ -24,11 +26,11 @@ export default function Ideas() {
   const allIdeas = getAllIdeas()
   
   // Get unique sectors and tags for filters
-  const sectors = [...new Set(allIdeas.map(idea => idea.sector))].sort()
+  const sectors = Array.from(new Set(allIdeas.map(idea => idea.sector))).sort()
   const allTags = allIdeas.flatMap(idea => idea.tags)
-  const uniqueTags = [...new Set(allTags)].sort()
+  const uniqueTags = Array.from(new Set(allTags)).sort()
 
-  // Filter ideas based on search query, sector, and tag
+  // Filter ideas based on search query, sector, tag, and status
   const filteredIdeas = allIdeas.filter(idea => {
     const matchesSearch = idea.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          idea.problemStatement.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -36,9 +38,52 @@ export default function Ideas() {
     
     const matchesSector = !selectedSector || idea.sector === selectedSector
     const matchesTag = !selectedTag || idea.tags.includes(selectedTag)
+    const matchesStatus = !selectedStatus || idea.status === selectedStatus
     
-    return matchesSearch && matchesSector && matchesTag
+    return matchesSearch && matchesSector && matchesTag && matchesStatus
   })
+
+  // Helper function to get status colors and text
+  const getStatusConfig = (status: string) => {
+    switch (status) {
+      case 'ideation':
+        return { color: 'gray', text: 'Ideation', bgColor: 'bg-gray-500' }
+      case 'brainstorming':
+        return { color: 'yellow', text: 'Brainstorming', bgColor: 'bg-yellow-500' }
+      case 'building':
+        return { color: 'green', text: 'Building', bgColor: 'bg-green-500' }
+      case 'live':
+        return { color: 'red', text: 'Live', bgColor: 'bg-red-500' }
+      default:
+        return { color: 'gray', text: 'Ideation', bgColor: 'bg-gray-500' }
+    }
+  }
+
+  // 3D tilt handlers
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, ideaId: string) => {
+    const card = e.currentTarget
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+    
+    const rotateX = (y - centerY) / 10 // Adjust tilt intensity
+    const rotateY = (centerX - x) / 10
+    
+    setTiltStyles(prev => ({
+      ...prev,
+      [ideaId]: { x: rotateX, y: rotateY }
+    }))
+  }
+
+  const handleMouseLeave = (ideaId: string) => {
+    setTiltStyles(prev => ({
+      ...prev,
+      [ideaId]: { x: 0, y: 0 }
+    }))
+  }
 
   return (
     <main className="min-h-screen bg-background">
@@ -73,7 +118,8 @@ export default function Ideas() {
             >
               <span className="relative inline-block">
                 Ideas
-                <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary/50 via-accent/50 to-primary/50 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                <div className="absolute -bottom-1 sm:-bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-1000 group-hover:w-full" 
+                     style={{ width: `${Math.min(scrollY * 0.5, 100)}%` }} />
               </span>
             </h1>
             
@@ -182,13 +228,34 @@ export default function Ideas() {
                   </div>
                 </div>
 
+                {/* Status Filter */}
+                <div className="relative">
+                  <select
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    className="appearance-none bg-background/60 backdrop-blur-md border border-border/40 rounded-full px-4 py-2 pr-8 text-sm focus:border-primary/50 focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 cursor-pointer"
+                  >
+                    <option value="">All Status</option>
+                    <option value="ideation">Ideation</option>
+                    <option value="brainstorming">Brainstorming</option>
+                    <option value="building">Building</option>
+                    <option value="live">Live</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <svg className="h-4 w-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+
                 {/* Clear Filters */}
-                {(searchQuery || selectedSector || selectedTag) && (
+                {(searchQuery || selectedSector || selectedTag || selectedStatus) && (
                   <button
                     onClick={() => {
                       setSearchQuery('')
                       setSelectedSector('')
                       setSelectedTag('')
+                      setSelectedStatus('')
                     }}
                     className="px-4 py-2 bg-muted/20 hover:bg-muted/30 text-muted-foreground hover:text-foreground rounded-full text-sm transition-all duration-300 flex items-center space-x-1"
                   >
@@ -248,7 +315,16 @@ export default function Ideas() {
                   animationDelay: `${index * 200}ms`
                 }}
               >
-                <div className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl lg:rounded-2xl p-3 sm:p-4 lg:p-6 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl lg:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group-hover:scale-105 group-hover:bg-background/80 h-full overflow-hidden">
+                <div 
+                  className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl lg:rounded-2xl p-3 sm:p-4 lg:p-6 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl lg:hover:shadow-2xl hover:shadow-primary/10 group-hover:scale-105 group-hover:bg-background/80 h-full overflow-hidden"
+                  onMouseMove={(e) => handleMouseMove(e, idea.id)}
+                  onMouseLeave={() => handleMouseLeave(idea.id)}
+                  style={{
+                    transform: `perspective(1000px) rotateX(${tiltStyles[idea.id]?.x || 0}deg) rotateY(${tiltStyles[idea.id]?.y || 0}deg) translateZ(0) scale(1.05)`,
+                    transformStyle: 'preserve-3d',
+                    transition: 'transform 0.2s ease-out'
+                  }}
+                >
                   {/* Animated background gradient */}
                   <div className="absolute inset-0 rounded-lg sm:rounded-xl lg:rounded-2xl bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   
@@ -278,6 +354,41 @@ export default function Ideas() {
                        }} />
                   
                   <div className="relative z-10">
+                    {/* Status Badge with Blinking Dot */}
+                    <div className="flex items-center justify-start mb-3 sm:mb-4">
+                      <div className="flex items-center space-x-2">
+                        <div className="relative flex items-center justify-center w-6 h-6">
+                          {/* Pulsing ring effect - outer ring */}
+                          <div 
+                            className={`absolute ${getStatusConfig(idea.status).bgColor} rounded-full opacity-40 animate-ping`}
+                            style={{ 
+                              width: '16px',
+                              height: '16px',
+                              animationDuration: '2s',
+                              animationIterationCount: 'infinite'
+                            }}
+                          />
+                          {/* Pulsing ring effect - middle ring */}
+                          <div 
+                            className={`absolute ${getStatusConfig(idea.status).bgColor} rounded-full opacity-60 animate-pulse`}
+                            style={{ 
+                              width: '12px',
+                              height: '12px',
+                              animationDuration: '1.5s',
+                              animationIterationCount: 'infinite'
+                            }}
+                          />
+                          {/* Main dot with glow */}
+                          <div 
+                            className={`w-3 h-3 ${getStatusConfig(idea.status).bgColor} rounded-full relative z-10`}
+                          />
+                        </div>
+                        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                          {getStatusConfig(idea.status).text}
+                        </span>
+                      </div>
+                    </div>
+
                     {/* Idea Header */}
                     <div className="mb-3 sm:mb-4 lg:mb-6">
                       <h3 className="text-base sm:text-lg lg:text-xl font-medium text-foreground mb-2 group-hover:text-primary transition-colors duration-300 relative">

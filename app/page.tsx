@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { Mail, Github, Linkedin } from 'lucide-react'
 import Navigation from './components/Navigation'
 
 export default function Home() {
@@ -140,6 +141,46 @@ export default function Home() {
                   className="px-8 py-3 border border-border text-foreground font-light text-sm hover:bg-accent transition-all duration-200 transform hover:scale-105"
                 >
                   Get in Touch
+                </a>
+              </div>
+
+              {/* Social Links */}
+              <div 
+                className="flex gap-6 justify-center items-center pt-12"
+                style={{
+                  transform: `translateY(${-scrollY * 0.12}px)`,
+                  transition: 'transform 0.1s ease-out'
+                }}
+              >
+                <a
+                  href="mailto:himanxusharmaa@gmail.com"
+                  className="group relative p-3 text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-110"
+                  title="Email"
+                >
+                  <Mail size={20} className="transition-all duration-300 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-primary/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </a>
+                
+                <a
+                  href="https://github.com/Himanxusharma"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative p-3 text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-110"
+                  title="GitHub"
+                >
+                  <Github size={20} className="transition-all duration-300 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-primary/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </a>
+                
+                <a
+                  href="https://www.linkedin.com/in/himanshusharma08/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative p-3 text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-110"
+                  title="LinkedIn"
+                >
+                  <Linkedin size={20} className="transition-all duration-300 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-primary/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </a>
               </div>
             </div>

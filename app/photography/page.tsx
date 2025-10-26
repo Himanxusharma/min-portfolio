@@ -9,6 +9,7 @@ export default function Photography() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('')
+  const [tiltStyles, setTiltStyles] = useState<{[key: string]: {x: number, y: number}}>({})
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,6 +56,32 @@ export default function Photography() {
     
     return matchesSearch && matchesCategory
   })
+
+  // 3D tilt handlers
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, photoId: string) => {
+    const card = e.currentTarget
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+    
+    const rotateX = (y - centerY) / 10 // Adjust tilt intensity
+    const rotateY = (centerX - x) / 10
+    
+    setTiltStyles(prev => ({
+      ...prev,
+      [photoId]: { x: rotateX, y: rotateY }
+    }))
+  }
+
+  const handleMouseLeave = (photoId: string) => {
+    setTiltStyles(prev => ({
+      ...prev,
+      [photoId]: { x: 0, y: 0 }
+    }))
+  }
 
   return (
     <main className="min-h-screen bg-background">
@@ -222,11 +249,13 @@ export default function Photography() {
               {filteredPhotos.map((photo, index) => (
               <div
                 key={photo.id}
-                className="group cursor-pointer relative overflow-hidden rounded-xl sm:rounded-2xl bg-background/50 backdrop-blur-sm border border-border/30 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-2"
+                className="group cursor-pointer relative overflow-hidden rounded-xl sm:rounded-2xl bg-background/50 backdrop-blur-sm border border-border/30 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/10"
+                onMouseMove={(e) => handleMouseMove(e, photo.id)}
+                onMouseLeave={() => handleMouseLeave(photo.id)}
                 style={{
-                  transform: `translateY(${-scrollY * 0.02 * (index + 1)}px)`,
-                  transition: 'transform 0.1s ease-out',
-                  animationDelay: `${index * 100}ms`
+                  transform: `perspective(1000px) rotateX(${tiltStyles[photo.id]?.x || 0}deg) rotateY(${tiltStyles[photo.id]?.y || 0}deg) translateZ(0) scale(1.02) translateY(${-scrollY * 0.02 * (index + 1)}px)`,
+                  transformStyle: 'preserve-3d',
+                  transition: 'transform 0.2s ease-out'
                 }}
                 onClick={() => setSelectedImage(photo.src)}
               >
@@ -237,7 +266,7 @@ export default function Photography() {
                 <div className="aspect-[4/3] relative overflow-hidden">
                   <img
                     src={photo.src}
-                    alt={photo.alt}
+                    alt={photo.title}
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110 group-hover:contrast-110"
                     loading="lazy"
                     decoding="async"

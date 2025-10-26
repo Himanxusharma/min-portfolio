@@ -22,9 +22,11 @@ export default function Journey() {
       company: "Paxcom India (P) Ltd - A Paymentus Company",
       role: "Software Developer",
       achievements: [
-        "Led the design and implementation of a major product feature for Paymentus, the Recurring Maintenance Mode System, designed and developed from scratch.",
-        "Spearheaded the optimisation of an existing code base integrating the Snowflake for a report-generating job within the microservices architecture. This initiative resulted in improved performance and efficiency. This was acknowledged and appreciated by Director-Product Development Team Paymentus, for its substantial impact on our product offerings.",
-        "Integrated Green Dot payment method into the product."
+        "Integrated Scan To Pay (Cash Provider) Payment Method using Java & Spring Boot, expanding transaction processing coverage by 20% across 597M+ annual payments, deployed in Dockerized microservices on Kubernetes.",
+        "Led the design and implementation of the Recurring Maintenance Mode System for Paymentus, a major product feature developed from scratch that reduced system downtime by 25% and automated 100 hours of manual maintenance tasks monthly, significantly contributing to a platform trusted by over 25 Fortune 500 companies.",
+        "Designed and developed a Dynamic Payments Report & Analysis page that allows users to filter and search transaction reports, presenting the results through interactive charts and data tables for enhanced data visualisation and analysis.",
+        "Optimised report generation in microservices by integrating Snowflake, reducing execution time by 23% and performance, recognised by the Director of Product Development, Paymentus.",
+        "Mid Level Implementation Tickets Delivered ~10.25 tickets/month (80% above average) with consistent quality, ranking among top contributors, demonstrating a commitment to delivering both quantity and quality within a high-volume payment processing environment."
       ]
     },
     {
@@ -33,46 +35,69 @@ export default function Journey() {
       role: "Software Developer Intern",
       achievements: [
         "Received a letter of recommendation from the CTO.",
-        "Developed an algorithm for Fraud Risk Management (FRM)",
-        "Participated in the design and development of the Core Banking System (CBS)",
-        "Conducted user activity examination for over 100k+ users to assess their preferences and requirements for modern-day banking facilities."
+        "Developed an API-driven Fraud Risk Management (FRM) algorithm using ISO 8583 protocols and JSON-based transaction data, securing UPI payments of 9.8 Lakh+ customers.",
+        "Contributed to Core Banking System design, ensuring protocol harmonization across 79+ branches and 114 BC branches.",
+        "Conducted analysis of 100K+ user activities to improve adoption of API-enabled modern banking facilities."
       ]
     }
   ]
+
+  const education = [
+    {
+      period: "2019 - 2023",
+      institution: "Jaypee University Of Information Technology",
+      degree: "Bachelor of Technology",
+      description: "Praesent dignissim sollicitudin justo, sed elementum quam lacinia quis. Phasellus eleifend tristique posuere. Sed vitae dui nec magna."
+    },
+    {
+      period: "2017 - 2019",
+      institution: "NCS, Delhi",
+      degree: "Intermediate",
+      description: "Maecenas tempus faucibus rutrum. Duis eu aliquam urna. Proin vitae nulla tristique, ornare felis id, congue libero. Nam volutpat euismod quam."
+    }
+  ]
+
+  const technicalSkills = {
+    languages: ["Java", "JavaScript", "Python", "SQL/PLSQL", "FTL"],
+    devops: ["Jira", "Postman", "Git", "Docker", "Kubernetes", "CI/CD"],
+    frameworks: ["Spring Boot", "Spring MVC", "JSP", "Node.js", "Microservices"],
+    architecture: ["REST APIs", "Kafka", "Agile Methodologies", "Linux", "Shell Scripting", "Microservices"],
+    databases: ["Oracle", "MongoDB", "Snowflake", "Amazon S3"]
+  }
 
 
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
       
-      <section className="pt-20 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-light text-foreground mb-4 sm:mb-6">
+      <section className="pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-20 sm:pb-24 md:pb-28 lg:pb-32 px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light text-foreground mb-3 sm:mb-4 md:mb-6">
               Journey
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto px-4">
+            <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-4">
               My path as a designer and developer, the challenges and milestones
             </p>
           </div>
           
           {/* Experience Timeline */}
-          <div className="mb-16 sm:mb-20">
-            <div className="text-center mb-12 sm:mb-16">
-              <h2 className="text-xl sm:text-2xl font-light text-foreground mb-4">Professional Experience</h2>
-              <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
+          <div className="mb-12 sm:mb-16 md:mb-20">
+            <div className="text-center mb-8 sm:mb-12 md:mb-16">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-light text-foreground mb-3 sm:mb-4">Professional Experience</h2>
+              <div className="w-12 sm:w-16 md:w-24 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
             </div>
             
             <div className="relative">
               {/* Animated timeline line - responsive positioning */}
-              <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-accent/30 to-primary/20">
-                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary/40 to-accent/40 rounded-full animate-pulse" />
+              <div className="absolute left-3 sm:left-4 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/20 via-accent/30 to-primary/20">
+                <div className="absolute top-0 left-0 w-full h-1 sm:h-2 bg-gradient-to-r from-primary/40 to-accent/40 rounded-full animate-pulse" />
               </div>
               
               {experiences.map((exp, index) => (
                 <div 
                   key={index}
-                  className="relative mb-12 sm:mb-16 lg:mb-20 pl-12 sm:pl-20 group cursor-pointer"
+                  className="relative mb-8 sm:mb-12 md:mb-16 lg:mb-20 pl-8 sm:pl-12 md:pl-20 group cursor-pointer"
                   onMouseEnter={() => setActiveItem(index)}
                   onMouseLeave={() => setActiveItem(-1)}
                   style={{
@@ -82,40 +107,40 @@ export default function Journey() {
                   }}
                 >
                   {/* Enhanced timeline dot with glow - responsive sizing */}
-                  <div className="absolute left-2 sm:left-6 top-4 sm:top-6 w-3 h-3 sm:w-4 sm:h-4 bg-foreground rounded-full border-2 sm:border-4 border-background group-hover:scale-125 transition-all duration-300">
+                  <div className="absolute left-1 sm:left-2 md:left-6 top-3 sm:top-4 md:top-6 w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4 bg-foreground rounded-full border-2 sm:border-3 md:border-4 border-background group-hover:scale-125 transition-all duration-300">
                     <div className="absolute inset-0 rounded-full bg-primary/20 group-hover:bg-primary/40 transition-all duration-300 blur-sm" />
                   </div>
                   
                   {/* Floating particles around timeline dot - responsive positioning */}
-                  <div className="absolute left-2 sm:left-6 top-4 sm:top-6 pointer-events-none">
-                    <div className="absolute -top-1 sm:-top-2 -right-1 sm:-right-2 w-1 h-1 bg-primary/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500" style={{ animationDelay: '0.1s' }} />
-                    <div className="absolute -bottom-1 sm:-bottom-2 -left-1 sm:-left-2 w-1 h-1 bg-accent/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500" style={{ animationDelay: '0.3s' }} />
-                    <div className="absolute top-1/2 -right-2 sm:-right-3 w-1 h-1 bg-primary/40 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500" style={{ animationDelay: '0.5s' }} />
+                  <div className="absolute left-1 sm:left-2 md:left-6 top-3 sm:top-4 md:top-6 pointer-events-none">
+                    <div className="absolute -top-0.5 sm:-top-1 md:-top-2 -right-0.5 sm:-right-1 md:-right-2 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-primary/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500" style={{ animationDelay: '0.1s' }} />
+                    <div className="absolute -bottom-0.5 sm:-bottom-1 md:-bottom-2 -left-0.5 sm:-left-1 md:-left-2 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-accent/60 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500" style={{ animationDelay: '0.3s' }} />
+                    <div className="absolute top-1/2 -right-1 sm:-right-2 md:-right-3 w-0.5 h-0.5 sm:w-1 sm:h-1 bg-primary/40 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-all duration-500" style={{ animationDelay: '0.5s' }} />
                   </div>
                   
                   {/* Enhanced content card - responsive padding and sizing */}
-                  <div className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 hover:border-primary/40 hover:shadow-xl sm:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group-hover:scale-105 group-hover:bg-background/80">
+                  <div className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group-hover:scale-105 group-hover:bg-background/80">
                     {/* Card glow effect */}
-                    <div className="absolute inset-0 rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     
                     {/* Header with enhanced styling - responsive layout */}
                     <div className="relative z-10">
-                      <div className="mb-4 sm:mb-6">
+                      <div className="mb-3 sm:mb-4 md:mb-6">
                         <span className="inline-block px-2 sm:px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full mb-2">
                           {exp.period}
                         </span>
-                        <h3 className="text-lg sm:text-xl font-light text-foreground mb-1 group-hover:text-primary transition-colors duration-300">
+                        <h3 className="text-base sm:text-lg md:text-xl font-light text-foreground mb-1 group-hover:text-primary transition-colors duration-300">
                           {exp.company}
                         </h3>
-                        <p className="text-base sm:text-lg text-primary font-medium">{exp.role}</p>
+                        <p className="text-sm sm:text-base md:text-lg text-primary font-medium">{exp.role}</p>
                       </div>
                       
                       {/* Enhanced achievements list - responsive spacing */}
-                      <div className="space-y-3 sm:space-y-4">
+                      <div className="space-y-2 sm:space-y-3 md:space-y-4">
                         {exp.achievements.map((achievement, idx) => (
-                          <div key={idx} className="flex items-start space-x-3 sm:space-x-4 group/item">
-                            <div className="relative flex-shrink-0 mt-1.5 sm:mt-2">
-                              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary rounded-full group-hover/item:scale-125 transition-transform duration-300" />
+                          <div key={idx} className="flex items-start space-x-2 sm:space-x-3 md:space-x-4 group/item">
+                            <div className="relative flex-shrink-0 mt-1 sm:mt-1.5 md:mt-2">
+                              <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 bg-primary rounded-full group-hover/item:scale-125 transition-transform duration-300" />
                               <div className="absolute inset-0 bg-primary/20 rounded-full opacity-0 group-hover/item:opacity-100 group-hover/item:scale-150 transition-all duration-300" />
                             </div>
                             <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed group-hover/item:text-foreground transition-colors duration-300">
@@ -128,6 +153,217 @@ export default function Journey() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Education Cards */}
+          <div className="mb-12 sm:mb-16 md:mb-20">
+            <div className="text-center mb-8 sm:mb-12 md:mb-16">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-light text-foreground mb-3 sm:mb-4">Education</h2>
+              <div className="w-12 sm:w-16 md:w-24 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+              {education.map((edu, index) => (
+                <div 
+                  key={index}
+                  className="group cursor-pointer"
+                  onMouseEnter={() => setActiveItem(index + 10)}
+                  onMouseLeave={() => setActiveItem(-1)}
+                  style={{
+                    transform: `translateY(${-scrollY * 0.05}px)`,
+                    transition: 'transform 0.1s ease-out',
+                    animationDelay: `${index * 200}ms`
+                  }}
+                >
+                  {/* Enhanced content card - responsive padding and sizing */}
+                  <div className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group-hover:scale-105 group-hover:bg-background/80 h-full">
+                    {/* Card glow effect */}
+                    <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    {/* Decorative corner elements */}
+                    <div className="absolute top-2 right-2 sm:top-3 sm:right-3 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 w-1 h-1 bg-accent/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    {/* Header with enhanced styling - responsive layout */}
+                    <div className="relative z-10">
+                      <div className="mb-3 sm:mb-4 md:mb-6">
+                        <span className="inline-block px-2 sm:px-3 py-1 bg-primary/10 text-primary text-xs font-medium rounded-full mb-2">
+                          {edu.period}
+                        </span>
+                        <h3 className="text-base sm:text-lg md:text-xl font-light text-foreground mb-1 group-hover:text-primary transition-colors duration-300">
+                          {edu.institution}
+                        </h3>
+                        <p className="text-sm sm:text-base md:text-lg text-primary font-medium">{edu.degree}</p>
+                      </div>
+                      
+                      {/* Description */}
+                      <div className="space-y-2 sm:space-y-3 md:space-y-4">
+                        <div className="flex items-start space-x-2 sm:space-x-3 md:space-x-4 group/item">
+                          <div className="relative flex-shrink-0 mt-1 sm:mt-1.5 md:mt-2">
+                            <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 bg-primary rounded-full group-hover/item:scale-125 transition-transform duration-300" />
+                            <div className="absolute inset-0 bg-primary/20 rounded-full opacity-0 group-hover/item:opacity-100 group-hover/item:scale-150 transition-all duration-300" />
+                          </div>
+                          <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed group-hover/item:text-foreground transition-colors duration-300">
+                            {edu.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Technical Skills */}
+          <div className="mb-12 sm:mb-16 md:mb-20">
+            <div className="text-center mb-8 sm:mb-12 md:mb-16">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-light text-foreground mb-3 sm:mb-4">Technical Skills</h2>
+              <div className="w-12 sm:w-16 md:w-24 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
+              {/* Languages */}
+              <div className="group cursor-pointer">
+                <div className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group-hover:scale-105 group-hover:bg-background/80 h-full">
+                  <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative z-10">
+                    <h3 className="text-sm sm:text-base md:text-lg font-medium text-foreground mb-3 sm:mb-4 group-hover:text-primary transition-colors duration-300">Languages</h3>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      {technicalSkills.languages.map((skill, index) => (
+                        <span key={index} className="px-2 sm:px-3 py-1 bg-primary/10 text-primary text-xs sm:text-sm rounded-full border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40 transition-all duration-300">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* DevOps & Tools */}
+              <div className="group cursor-pointer">
+                <div className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group-hover:scale-105 group-hover:bg-background/80 h-full">
+                  <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative z-10">
+                    <h3 className="text-sm sm:text-base md:text-lg font-medium text-foreground mb-3 sm:mb-4 group-hover:text-primary transition-colors duration-300">DevOps & Tools</h3>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      {technicalSkills.devops.map((skill, index) => (
+                        <span key={index} className="px-2 sm:px-3 py-1 bg-primary/10 text-primary text-xs sm:text-sm rounded-full border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40 transition-all duration-300">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Frameworks */}
+              <div className="group cursor-pointer">
+                <div className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group-hover:scale-105 group-hover:bg-background/80 h-full">
+                  <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative z-10">
+                    <h3 className="text-sm sm:text-base md:text-lg font-medium text-foreground mb-3 sm:mb-4 group-hover:text-primary transition-colors duration-300">Frameworks</h3>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      {technicalSkills.frameworks.map((skill, index) => (
+                        <span key={index} className="px-2 sm:px-3 py-1 bg-primary/10 text-primary text-xs sm:text-sm rounded-full border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40 transition-all duration-300">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Architecture */}
+              <div className="group cursor-pointer">
+                <div className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group-hover:scale-105 group-hover:bg-background/80 h-full">
+                  <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative z-10">
+                    <h3 className="text-sm sm:text-base md:text-lg font-medium text-foreground mb-3 sm:mb-4 group-hover:text-primary transition-colors duration-300">Architecture</h3>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      {technicalSkills.architecture.map((skill, index) => (
+                        <span key={index} className="px-2 sm:px-3 py-1 bg-primary/10 text-primary text-xs sm:text-sm rounded-full border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40 transition-all duration-300">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Databases */}
+              <div className="group cursor-pointer">
+                <div className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 group-hover:scale-105 group-hover:bg-background/80 h-full">
+                  <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative z-10">
+                    <h3 className="text-sm sm:text-base md:text-lg font-medium text-foreground mb-3 sm:mb-4 group-hover:text-primary transition-colors duration-300">Databases</h3>
+                    <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                      {technicalSkills.databases.map((skill, index) => (
+                        <span key={index} className="px-2 sm:px-3 py-1 bg-primary/10 text-primary text-xs sm:text-sm rounded-full border border-primary/20 group-hover:bg-primary/20 group-hover:border-primary/40 transition-all duration-300">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Resume Download */}
+          <div className="text-center mt-8 sm:mt-12 md:mt-16">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+              {/* Direct Download Button */}
+              <button 
+                onClick={() => {
+                  const link = document.createElement('a')
+                  link.href = '/files/himanshusharma.pdf'
+                  link.download = 'Himanshu_Sharma_Resume.pdf'
+                  document.body.appendChild(link)
+                  link.click()
+                  document.body.removeChild(link)
+                }}
+                className="group relative inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 hover:border-primary/50 rounded-lg sm:rounded-xl md:rounded-2xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+              >
+                <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10 flex items-center space-x-1.5 sm:space-x-2 md:space-x-3">
+                  <svg 
+                    className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform duration-300" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" 
+                    />
+                  </svg>
+                  <span>Download Resume</span>
+                </div>
+              </button>
+
+              {/* Google Drive Button */}
+              <button 
+                onClick={() => {
+                  window.open('https://drive.google.com/file/d/1gMNQGvlnd14beDwyMiyzsk4-nLVPhc-g/view?usp=sharing', '_blank')
+                }}
+                className="group relative inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 hover:border-primary/50 rounded-lg sm:rounded-xl md:rounded-2xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+              >
+                <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10 flex items-center space-x-1.5 sm:space-x-2 md:space-x-3">
+                  <svg 
+                    className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform duration-300" 
+                    viewBox="0 0 24 24" 
+                    fill="currentColor"
+                  >
+                    <path d="M7.71 6.705L0 14.42h4.42l3.29-3.29 3.29 3.29h4.42L12.29 6.705H7.71zM12 0L4.29 7.71h7.42L19.71 0H12zM19.71 16.29L12 24l-7.71-7.71h4.42l3.29 3.29 3.29-3.29h4.42z"/>
+                  </svg>
+                  <span>View on Drive</span>
+                </div>
+              </button>
             </div>
           </div>
 

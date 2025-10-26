@@ -2,6 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import Navigation from '../components/Navigation'
+import { 
+  getAllProfessionalExperience, 
+  getAllEducation, 
+  getTechnicalSkills, 
+  getResumeDownload 
+} from '../data/journey'
 
 export default function Journey() {
   const [scrollY, setScrollY] = useState(0)
@@ -16,54 +22,10 @@ export default function Journey() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const experiences = [
-    {
-      period: "Feb'2023 - Present",
-      company: "Paxcom India (P) Ltd - A Paymentus Company",
-      role: "Software Developer",
-      achievements: [
-        "Integrated Scan To Pay (Cash Provider) Payment Method using Java & Spring Boot, expanding transaction processing coverage by 20% across 597M+ annual payments, deployed in Dockerized microservices on Kubernetes.",
-        "Led the design and implementation of the Recurring Maintenance Mode System for Paymentus, a major product feature developed from scratch that reduced system downtime by 25% and automated 100 hours of manual maintenance tasks monthly, significantly contributing to a platform trusted by over 25 Fortune 500 companies.",
-        "Designed and developed a Dynamic Payments Report & Analysis page that allows users to filter and search transaction reports, presenting the results through interactive charts and data tables for enhanced data visualisation and analysis.",
-        "Optimised report generation in microservices by integrating Snowflake, reducing execution time by 23% and performance, recognised by the Director of Product Development, Paymentus.",
-        "Mid Level Implementation Tickets Delivered ~10.25 tickets/month (80% above average) with consistent quality, ranking among top contributors, demonstrating a commitment to delivering both quantity and quality within a high-volume payment processing environment."
-      ]
-    },
-    {
-      period: "Jun 2022 - Jul 2022",
-      company: "Shivalik Small Finance Bank",
-      role: "Software Developer Intern",
-      achievements: [
-        "Received a letter of recommendation from the CTO.",
-        "Developed an API-driven Fraud Risk Management (FRM) algorithm using ISO 8583 protocols and JSON-based transaction data, securing UPI payments of 9.8 Lakh+ customers.",
-        "Contributed to Core Banking System design, ensuring protocol harmonization across 79+ branches and 114 BC branches.",
-        "Conducted analysis of 100K+ user activities to improve adoption of API-enabled modern banking facilities."
-      ]
-    }
-  ]
-
-  const education = [
-    {
-      period: "2019 - 2023",
-      institution: "Jaypee University Of Information Technology",
-      degree: "Bachelor of Technology",
-      description: "Praesent dignissim sollicitudin justo, sed elementum quam lacinia quis. Phasellus eleifend tristique posuere. Sed vitae dui nec magna."
-    },
-    {
-      period: "2017 - 2019",
-      institution: "NCS, Delhi",
-      degree: "Intermediate",
-      description: "Maecenas tempus faucibus rutrum. Duis eu aliquam urna. Proin vitae nulla tristique, ornare felis id, congue libero. Nam volutpat euismod quam."
-    }
-  ]
-
-  const technicalSkills = {
-    languages: ["Java", "JavaScript", "Python", "SQL/PLSQL", "FTL"],
-    devops: ["Jira", "Postman", "Git", "Docker", "Kubernetes", "CI/CD"],
-    frameworks: ["Spring Boot", "Spring MVC", "JSP", "Node.js", "Microservices"],
-    architecture: ["REST APIs", "Kafka", "Agile Methodologies", "Linux", "Shell Scripting", "Microservices"],
-    databases: ["Oracle", "MongoDB", "Snowflake", "Amazon S3"]
-  }
+  const experiences = getAllProfessionalExperience()
+  const education = getAllEducation()
+  const technicalSkills = getTechnicalSkills()
+  const resumeDownload = getResumeDownload()
 
 
   return (
@@ -132,7 +94,7 @@ export default function Journey() {
                         <h3 className="text-base sm:text-lg md:text-xl font-light text-foreground mb-1 group-hover:text-primary transition-colors duration-300">
                           {exp.company}
                         </h3>
-                        <p className="text-sm sm:text-base md:text-lg text-primary font-medium">{exp.role}</p>
+                        <p className="text-sm sm:text-base md:text-lg text-primary font-medium">{exp.position}</p>
                       </div>
                       
                       {/* Enhanced achievements list - responsive spacing */}
@@ -318,8 +280,8 @@ export default function Journey() {
               <button 
                 onClick={() => {
                   const link = document.createElement('a')
-                  link.href = '/files/himanshusharma.pdf'
-                  link.download = 'Himanshu_Sharma_Resume.pdf'
+                  link.href = resumeDownload.directDownload.path
+                  link.download = resumeDownload.directDownload.filename
                   document.body.appendChild(link)
                   link.click()
                   document.body.removeChild(link)
@@ -348,7 +310,7 @@ export default function Journey() {
               {/* Google Drive Button */}
               <button 
                 onClick={() => {
-                  window.open('https://drive.google.com/file/d/1gMNQGvlnd14beDwyMiyzsk4-nLVPhc-g/view?usp=sharing', '_blank')
+                  window.open(resumeDownload.googleDrive.url, '_blank')
                 }}
                 className="group relative inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 hover:border-primary/50 rounded-lg sm:rounded-xl md:rounded-2xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
               >
@@ -361,7 +323,7 @@ export default function Journey() {
                   >
                     <path d="M7.71 6.705L0 14.42h4.42l3.29-3.29 3.29 3.29h4.42L12.29 6.705H7.71zM12 0L4.29 7.71h7.42L19.71 0H12zM19.71 16.29L12 24l-7.71-7.71h4.42l3.29 3.29 3.29-3.29h4.42z"/>
                   </svg>
-                  <span>View on Drive</span>
+                  <span>{resumeDownload.googleDrive.label}</span>
                 </div>
               </button>
             </div>

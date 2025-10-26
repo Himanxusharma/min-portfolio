@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Mail, Github, Linkedin } from 'lucide-react'
+import { Mail, Github, Linkedin, Lightbulb } from 'lucide-react'
 import Navigation from './components/Navigation'
 
 export default function Home() {
@@ -60,13 +60,22 @@ export default function Home() {
             >
               {/* Main Headline */}
               <h1 
-                className="text-4xl sm:text-5xl lg:text-6xl font-light text-foreground leading-tight"
+                className="text-4xl sm:text-5xl lg:text-6xl font-light text-foreground leading-tight group"
                 style={{
                   transform: `translateY(${-scrollY * 0.2}px)`,
                   transition: 'transform 0.1s ease-out'
                 }}
               >
-                This is how I think.
+                This is how I th<span className="relative inline-block">
+                  <span className="group-hover:hidden inline-block">i</span>
+                  <Lightbulb 
+                    className="hidden group-hover:inline-block text-foreground relative"
+                    size={28}
+                    style={{ 
+                      verticalAlign: 'baseline'
+                    }}
+                  />
+                </span>nk.
               </h1>
               
               {/* Description */}

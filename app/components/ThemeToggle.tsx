@@ -7,22 +7,34 @@ export default function ThemeToggle() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
 
   useEffect(() => {
-    setMounted(true)
     // Get initial theme from localStorage or system preference
-    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark'
+    const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null
+    let initialTheme: 'light' | 'dark'
+    
     if (savedTheme) {
-      setTheme(savedTheme)
+      initialTheme = savedTheme
     } else {
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      setTheme(prefersDark ? 'dark' : 'light')
+      initialTheme = prefersDark ? 'dark' : 'light'
     }
+    
+    // Apply theme to document immediately
+    setTheme(initialTheme)
+    document.documentElement.classList.toggle('dark', initialTheme === 'dark')
+    
+    // Mark as mounted after theme is applied
+    setMounted(true)
   }, [])
 
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light'
-    setTheme(newTheme)
-    localStorage.setItem('theme', newTheme)
-    document.documentElement.classList.toggle('dark', newTheme === 'dark')
+    if (!mounted) return // Prevent toggling before component is fully mounted
+    
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light'
+      localStorage.setItem('theme', newTheme)
+      document.documentElement.classList.toggle('dark', newTheme === 'dark')
+      return newTheme
+    })
   }
 
   if (!mounted) {

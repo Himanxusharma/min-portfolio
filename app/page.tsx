@@ -92,13 +92,18 @@ export default function Home() {
               
               {/* Photo Section */}
               <div 
-                className="flex justify-center mt-12 mb-8"
+                className="flex justify-center mt-12 mb-8 relative"
                 style={{
                   transform: `translateY(${-scrollY * 0.08}px)`,
                   transition: 'transform 0.1s ease-out'
                 }}
               >
-                <div className="relative group cursor-pointer">
+                {/* Mobile tap indicator */}
+                <div className="md:hidden absolute -top-6 left-1/2 transform -translate-x-1/2 opacity-0 animate-bounce" style={{ animationDelay: '2s', animationDuration: '2s', animationIterationCount: '3' }}>
+                  <span className="text-xs text-muted-foreground font-light">Tap me!</span>
+                </div>
+
+                <div className="relative group cursor-pointer touch-manipulation">
                   {/* Outer ring animation */}
                   <div className="absolute inset-0 rounded-full border-2 border-transparent group-hover:border-primary/30 transition-all duration-500 group-hover:scale-110" />
                   

@@ -40,8 +40,27 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+
+    document.body.classList.toggle('overflow-hidden', isOpen)
+
+    return () => {
+      document.body.classList.remove('overflow-hidden')
+    }
+  }, [isOpen])
+
   return (
-    <nav
+    <>
+      {isOpen && (
+        <button
+          type="button"
+          aria-hidden="true"
+          onClick={() => setIsOpen(false)}
+          className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm transition-opacity duration-300 md:hidden"
+        />
+      )}
+      <nav
       className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
           ? 'bg-background/90 backdrop-blur-xl border-t border-border/50 shadow-lg shadow-black/5'
@@ -134,14 +153,19 @@ export default function Navigation() {
         {isOpen && (
           <div className="md:hidden overflow-hidden">
             <div className="px-2 pb-2 pt-3 space-y-1 bg-background/95 backdrop-blur-xl border-b border-border/50 rounded-t-2xl shadow-lg">
-              {/* Photo in Mobile Menu (on non-home pages, only when menu is open) */}
-              {isNotHomePage && isOpen && (
+              {/* Photo in Mobile Menu (shown when menu is open on all pages) */}
+              {isOpen && (
                 <div className="flex justify-center px-4 py-4 mb-2">
                   <Link
                     href="/"
                     className="group relative"
+                    aria-label="Go to home"
                   >
-                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300">
+                    <div className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden transition-all duration-300 ${
+                      isNotHomePage
+                        ? 'ring-2 ring-primary/20 group-hover:ring-primary/50'
+                        : 'ring-2 ring-accent/30 group-hover:ring-accent/50'
+                    }`}>
                       <Image
                         src="/himanshu-photo.png"
                         alt="Himanshu Sharma"
@@ -149,7 +173,9 @@ export default function Navigation() {
                         height={96}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
-                      <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                        isNotHomePage ? 'bg-primary/10' : 'bg-accent/20'
+                      }`} />
                     </div>
                   </Link>
                 </div>
@@ -187,6 +213,7 @@ export default function Navigation() {
           </div>
         )}
       </div>
-    </nav>
+      </nav>
+    </>
   )
 }

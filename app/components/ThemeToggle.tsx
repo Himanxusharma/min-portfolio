@@ -1,10 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false)
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [feedbackMessage, setFeedbackMessage] = useState<string | null>(null)
+  const messageTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     // Get initial theme from localStorage or system preference
@@ -28,14 +30,35 @@ export default function ThemeToggle() {
 
   const toggleTheme = () => {
     if (!mounted) return // Prevent toggling before component is fully mounted
-    
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light'
-      localStorage.setItem('theme', newTheme)
-      document.documentElement.classList.toggle('dark', newTheme === 'dark')
-      return newTheme
-    })
+
+    const nextTheme: 'light' | 'dark' = theme === 'light' ? 'dark' : 'light'
+
+    setTheme(nextTheme)
+    localStorage.setItem('theme', nextTheme)
+    document.documentElement.classList.toggle('dark', nextTheme === 'dark')
+
+    const message = nextTheme === 'dark'
+      ? 'Welcome to the dark side'
+      : 'I want some light!!!'
+
+    setFeedbackMessage(message)
+
+    if (messageTimeoutRef.current) {
+      clearTimeout(messageTimeoutRef.current)
+    }
+
+    messageTimeoutRef.current = setTimeout(() => {
+      setFeedbackMessage(null)
+    }, 2400)
   }
+
+  useEffect(() => {
+    return () => {
+      if (messageTimeoutRef.current) {
+        clearTimeout(messageTimeoutRef.current)
+      }
+    }
+  }, [])
 
   if (!mounted) {
     return (
@@ -50,6 +73,13 @@ export default function ThemeToggle() {
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
       title={theme === 'light' ? 'Welcome to the dark side' : 'I want some light!!!'}
     >
+      {/* Mobile feedback bubble */}
+      {feedbackMessage && (
+        <div className="md:hidden absolute -bottom-16 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-2 bg-background/95 backdrop-blur-md border border-border/40 rounded-xl text-xs text-foreground shadow-lg transition-opacity duration-300 pointer-events-none" aria-live="polite">
+          {feedbackMessage}
+        </div>
+      )}
+
       {/* Tooltip with creative animation */}
       <div className="absolute -top-14 left-1/2 transform -translate-x-1/2 whitespace-nowrap px-4 py-2 bg-background/95 backdrop-blur-md border border-border/40 rounded-xl text-xs text-foreground opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50 shadow-2xl group-hover:scale-105">
         <span className="font-light flex items-center space-x-1">

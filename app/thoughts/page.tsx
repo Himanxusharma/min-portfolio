@@ -14,18 +14,22 @@ export default function Thoughts() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedThought, setSelectedThought] = useState<Thought | null>(null)
   const [tiltStyles, setTiltStyles] = useState<{[key: string]: {x: number, y: number}}>({})
+  const [mounted, setMounted] = useState(false)
 
-  // Generate particle positions once to prevent re-rendering jumps
-  const particles = useMemo(() => 
+  // Generate particle positions once on client side to prevent SSR mismatch
+  const [particles] = useState(() => 
     [...Array(15)].map((_, i) => ({
       id: i,
       left: Math.random() * 100,
       top: Math.random() * 100,
       animationDelay: Math.random() * 3,
       animationDuration: 2 + Math.random() * 3
-    })),
-    []
+    }))
   )
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -218,24 +222,26 @@ export default function Thoughts() {
   return (
     <main className="min-h-screen bg-background relative overflow-hidden">
       {/* Floating particles background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {particles.map((particle) => (
-          <div
-            key={particle.id}
-            className="absolute w-1 h-1 bg-primary/20 rounded-full animate-pulse"
-            style={{
-              left: `${particle.left}%`,
-              top: `${particle.top}%`,
-              animationDelay: `${particle.animationDelay}s`,
-              animationDuration: `${particle.animationDuration}s`
-            }}
-          />
-        ))}
-      </div>
+      {mounted && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {particles.map((particle) => (
+            <div
+              key={particle.id}
+              className="absolute w-1 h-1 bg-primary/20 rounded-full animate-pulse"
+              style={{
+                left: `${particle.left}%`,
+                top: `${particle.top}%`,
+                animationDelay: `${particle.animationDelay}s`,
+                animationDuration: `${particle.animationDuration}s`
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       <Navigation />
       
-      <section className="relative pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-12 sm:pb-16 md:pb-20 px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12">
+      <section className="relative pt-16 sm:pt-20 md:pt-24 lg:pt-32 pb-24 sm:pb-28 md:pb-32 px-3 sm:px-4 md:px-6 lg:px-8 xl:px-12">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8 sm:mb-12 md:mb-16 relative">

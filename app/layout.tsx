@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import DynamicTitle from './components/DynamicTitle'
 import Favicon from './components/Favicon'
+import MobileBackdrop from './components/MobileBackdrop'
 
 const inter = Inter({
   variable: '--font-geist-sans',
@@ -62,6 +63,7 @@ export default function RootLayout({
       >
         <Favicon />
         <DynamicTitle />
+        <MobileBackdrop />
         {children}
       </body>
     </html>

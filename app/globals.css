@@ -193,3 +193,213 @@ html {
 .nav-link:hover::before {
     left: 100%;
 }
+
+/* Mobile decorative backdrop animations */
+@keyframes mobileGlowPulse {
+
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 0.55;
+    }
+
+    35% {
+        transform: translate3d(18px, -22px, 0) scale(1.1);
+        opacity: 0.75;
+    }
+
+    70% {
+        transform: translate3d(-26px, 16px, 0) scale(0.92);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translate3d(12px, 24px, 0) scale(1.08);
+        opacity: 0.7;
+    }
+}
+
+@keyframes mobileGlowSweep {
+
+    0% {
+        transform: translateX(-40%);
+        opacity: 0.15;
+    }
+
+    45% {
+        opacity: 0.35;
+    }
+
+    100% {
+        transform: translateX(35%);
+        opacity: 0.1;
+    }
+}
+
+@keyframes mobilePulse {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(0.95);
+        box-shadow: 0 0 60px rgba(255, 255, 255, 0.1);
+        opacity: 0.65;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+        box-shadow: 0 0 90px rgba(253, 230, 138, 0.28);
+        opacity: 0.9;
+    }
+}
+
+.mobile-glow {
+    animation: mobileGlowPulse 18s ease-in-out infinite alternate;
+}
+
+.mobile-glow-delay {
+    animation: mobileGlowPulse 22s ease-in-out infinite alternate;
+    animation-delay: -9s;
+}
+
+.mobile-sweep {
+    animation: mobileGlowSweep 16s ease-in-out infinite;
+    mix-blend-mode: screen;
+}
+
+.mobile-pulse {
+    animation: mobilePulse 12s ease-in-out infinite;
+    mix-blend-mode: lighten;
+}
+
+@keyframes desktopGlowDrift {
+
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.95);
+        opacity: 0.35;
+    }
+
+    40% {
+        transform: translate3d(35px, -25px, 0) scale(1.05);
+        opacity: 0.5;
+    }
+
+    75% {
+        transform: translate3d(-30px, 20px, 0) scale(0.98);
+        opacity: 0.42;
+    }
+
+    100% {
+        transform: translate3d(15px, 30px, 0) scale(1.03);
+        opacity: 0.48;
+    }
+}
+
+@keyframes desktopSweep {
+
+    0% {
+        transform: translateX(-25%) skewX(-4deg);
+        opacity: 0.1;
+    }
+
+    60% {
+        opacity: 0.25;
+    }
+
+    100% {
+        transform: translateX(25%) skewX(3deg);
+        opacity: 0.12;
+    }
+}
+
+@keyframes desktopHaloPulse {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(0.93);
+        box-shadow: 0 0 70px rgba(255, 255, 255, 0.08);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.05);
+        box-shadow: 0 0 110px rgba(125, 211, 252, 0.28);
+        opacity: 0.85;
+    }
+}
+
+.ambient-desktop-glow {
+    animation: desktopGlowDrift 24s ease-in-out infinite alternate;
+}
+
+.ambient-desktop-glow-delay {
+    animation: desktopGlowDrift 28s ease-in-out infinite alternate;
+    animation-delay: -7s;
+}
+
+.ambient-desktop-sweep {
+    animation: desktopSweep 22s ease-in-out infinite;
+}
+
+.ambient-desktop-halo {
+    animation: desktopHaloPulse 18s ease-in-out infinite;
+    mix-blend-mode: lighten;
+}
+
+@keyframes ambientWaveSlide {
+
+    0% {
+        transform: translate3d(0, 0, 0) scaleX(1.05);
+    }
+
+    100% {
+        transform: translate3d(-50%, 0, 0) scaleX(1.05);
+    }
+}
+
+.ambient-wave-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 18vh;
+    max-height: 200px;
+    overflow: hidden;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.ambient-wave-container svg {
+    display: block;
+}
+
+.ambient-wave-top {
+    top: 0;
+    transform: rotate(180deg);
+}
+
+.ambient-wave-bottom {
+    bottom: 0;
+}
+
+.ambient-wave {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    fill: rgba(96, 165, 250, 0.18);
+    animation: ambientWaveSlide 26s linear infinite;
+}
+
+.ambient-wave-delay {
+    fill: rgba(244, 114, 182, 0.16);
+    animation-duration: 34s;
+    animation-delay: -8s;
+    opacity: 0.7;
+}
+
+.dark .ambient-wave {
+    fill: rgba(125, 211, 252, 0.18);
+}
+
+.dark .ambient-wave-delay {
+    fill: rgba(236, 72, 153, 0.2);
+}

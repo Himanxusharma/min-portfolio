@@ -20,6 +20,7 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeLink, setActiveLink] = useState('')
+  const [showMenuCue, setShowMenuCue] = useState(false)
   const pathname = usePathname()
   const isNotHomePage = pathname !== '/'
   
@@ -41,6 +42,16 @@ export default function Navigation() {
   }, [])
 
   useEffect(() => {
+    if (pathname === '/') {
+      setShowMenuCue(true)
+      const timeout = window.setTimeout(() => setShowMenuCue(false), 6500)
+      return () => window.clearTimeout(timeout)
+    }
+
+    setShowMenuCue(false)
+  }, [pathname])
+
+  useEffect(() => {
     if (typeof document === 'undefined') return
 
     document.body.classList.toggle('overflow-hidden', isOpen)
@@ -50,13 +61,23 @@ export default function Navigation() {
     }
   }, [isOpen])
 
+  const toggleMenu = () => {
+    setShowMenuCue(false)
+    setIsOpen((prev) => !prev)
+  }
+
+  const closeMenu = () => {
+    setShowMenuCue(false)
+    setIsOpen(false)
+  }
+
   return (
     <>
       {isOpen && (
         <button
           type="button"
           aria-hidden="true"
-          onClick={() => setIsOpen(false)}
+          onClick={closeMenu}
           className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm transition-opacity duration-300 md:hidden"
         />
       )}
@@ -134,10 +155,19 @@ export default function Navigation() {
 
           {/* Mobile menu button with creative animation */}
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={toggleMenu}
             className="md:hidden group relative p-3 rounded-xl text-foreground hover:text-primary transition-all duration-300 hover:bg-accent/50"
             aria-label="Toggle menu"
           >
+            {pathname === '/' && !isOpen && showMenuCue && (
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <div className="absolute -inset-3 rounded-2xl border border-primary/30 nav-cue-ring" />
+                <div className="absolute -inset-5 rounded-3xl bg-primary/15 blur-xl nav-cue-glow" />
+                <span className="absolute -top-11 left-1/2 -translate-x-1/2 text-[11px] font-light px-3 py-1 rounded-full bg-background/90 border border-border/50 text-foreground shadow-lg nav-cue-text">
+                  Tap to explore
+                </span>
+              </div>
+            )}
             <div className="relative">
               {isOpen ? (
                 <X size={24} className="transform rotate-90 transition-transform duration-300" />
@@ -191,7 +221,7 @@ export default function Navigation() {
                         ? 'text-foreground font-medium bg-primary/5' 
                         : 'text-muted-foreground hover:text-foreground'
                     }`}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => closeMenu()}
                     style={{
                       animationDelay: `${index * 50}ms`,
                       animation: 'slideInDown 0.3s ease-out forwards'

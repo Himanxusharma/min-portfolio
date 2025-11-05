@@ -403,3 +403,62 @@ html {
 .dark .ambient-wave-delay {
     fill: rgba(236, 72, 153, 0.2);
 }
+
+@keyframes navCueRing {
+
+    0% {
+        transform: scale(0.85);
+        opacity: 0.55;
+    }
+
+    60% {
+        opacity: 0.15;
+    }
+
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+@keyframes navCueGlow {
+
+    0%,
+    100% {
+        opacity: 0.35;
+        transform: scale(0.95);
+    }
+
+    50% {
+        opacity: 0.65;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes navCueText {
+
+    0%,
+    100% {
+        transform: translate(-50%, 0px);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: translate(-50%, -6px);
+        opacity: 1;
+    }
+}
+
+.nav-cue-ring {
+    animation: navCueRing 2.4s ease-out infinite;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.35);
+}
+
+.nav-cue-glow {
+    animation: navCueGlow 2.4s ease-in-out infinite;
+}
+
+.nav-cue-text {
+    animation: navCueText 3s ease-in-out infinite;
+    letter-spacing: 0.04em;
+}

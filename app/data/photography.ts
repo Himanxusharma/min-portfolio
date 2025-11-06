@@ -97,7 +97,7 @@ export const getPhotosByTag = (tag: string): Photo[] => {
 // Helper function to get unique categories
 export const getCategories = (): string[] => {
     const categories = photos.map(photo => photo.category).filter(Boolean) as string[];
-    return [...new Set(categories)].sort();
+    return Array.from(new Set(categories)).sort();
 };
 
 // Helper function to get unique tags

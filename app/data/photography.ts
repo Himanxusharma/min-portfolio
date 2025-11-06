@@ -103,7 +103,7 @@ export const getCategories = (): string[] => {
 // Helper function to get unique tags
 export const getTags = (): string[] => {
     const allTags = photos.flatMap(photo => photo.tags || []);
-    return [...new Set(allTags)].sort();
+    return Array.from(new Set(allTags)).sort();
 };
 
 // Helper function to add new photo (for future use)

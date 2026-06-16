@@ -186,33 +186,33 @@ export default function Home() {
               >
                 <a
                   href="mailto:himanxusharmaa@gmail.com"
-                  className="group relative p-3 text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-110"
+                  className="group relative p-3 text-muted-foreground hover:text-red-500 transition-all duration-300 hover:scale-110"
                   title="Email"
                 >
                   <Mail size={20} className="transition-all duration-300 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-primary/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-red-500/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </a>
                 
                 <a
                   href="https://github.com/Himanxusharma"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative p-3 text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-110"
+                  className="group relative p-3 text-muted-foreground hover:text-neutral-900 dark:hover:text-white transition-all duration-300 hover:scale-110"
                   title="GitHub"
                 >
                   <Github size={20} className="transition-all duration-300 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-primary/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-neutral-500/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </a>
                 
                 <a
                   href="https://www.linkedin.com/in/himanshusharma08/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative p-3 text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-110"
+                  className="group relative p-3 text-muted-foreground hover:text-[#0A66C2] transition-all duration-300 hover:scale-110"
                   title="LinkedIn"
                 >
                   <Linkedin size={20} className="transition-all duration-300 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-primary/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-[#0A66C2]/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </a>
               </div>
             </div>

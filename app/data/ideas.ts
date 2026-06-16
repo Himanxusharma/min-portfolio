@@ -41,62 +41,6 @@ export const ideas: Idea[] = [
         tags: ['IoT', 'AI', 'Sustainability', 'Urban Living'],
         visual: '/images/ideas/smart-garden.jpg',
         note: 'This concept combines IoT sensors, machine learning, and user-friendly design to make urban gardening accessible to everyone, regardless of their gardening experience.'
-    },
-    {
-        id: 'mental-health-companion',
-        name: 'Mental Health Companion',
-        sector: 'HealthTech',
-        status: 'ideation',
-        problemStatement: 'Many people struggle with mental health in isolation, lacking accessible and personalized support.',
-        solution: 'AI-powered mental health companion that provides 24/7 emotional support and personalized wellness guidance.',
-        whyItMatters: 'Improves mental health accessibility, reduces stigma, and provides immediate support when needed most.',
-        howItWillWork: 'Users interact with an AI companion through natural conversation. The system uses sentiment analysis, mood tracking, and personalized interventions to provide support, resources, and professional referrals when needed.',
-        coreFeatures: ['24/7 AI conversation', 'Mood tracking & analytics', 'Personalized interventions', 'Professional referrals', 'Privacy-first design'],
-        tags: ['AI', 'Mental Health', 'Wellness', 'Accessibility'],
-        visual: '/images/ideas/mental-health.jpg',
-        note: 'This platform prioritizes user privacy and provides a safe space for mental health support, complementing rather than replacing professional care.'
-    },
-    {
-        id: 'sustainable-fashion-platform',
-        name: 'Sustainable Fashion Platform',
-        sector: 'FashionTech',
-        status: 'ideation',
-        problemStatement: 'Fast fashion creates massive waste and environmental damage, while consumers want sustainable options but struggle to find them.',
-        solution: 'A marketplace connecting consumers with verified sustainable fashion brands and providing transparency in supply chains.',
-        whyItMatters: 'Reduces fashion waste, supports ethical brands, and educates consumers about sustainable choices.',
-        howItWillWork: 'Brands undergo sustainability verification. Consumers can filter by environmental impact, ethical practices, and materials. The platform provides detailed supply chain transparency and carbon footprint data for each product.',
-        coreFeatures: ['Sustainability verification', 'Supply chain transparency', 'Carbon footprint tracking', 'Ethical brand directory', 'Consumer education'],
-        tags: ['Sustainability', 'Fashion', 'Transparency', 'E-commerce'],
-        visual: '/images/ideas/sustainable-fashion.jpg',
-        note: 'This platform aims to make sustainable fashion the default choice by making it easy to discover, understand, and purchase ethical clothing.'
-    },
-    {
-        id: 'remote-learning-optimizer',
-        name: 'Remote Learning Optimizer',
-        sector: 'EdTech',
-        status: 'ideation',
-        problemStatement: 'Students struggle with focus and engagement in remote learning environments, leading to decreased academic performance.',
-        solution: 'AI-powered learning platform that adapts to individual learning styles and optimizes the remote learning experience.',
-        whyItMatters: 'Improves learning outcomes, increases engagement, and makes education more accessible and personalized.',
-        howItWillWork: 'The platform analyzes learning patterns, attention spans, and preferences to create personalized study schedules, break reminders, and interactive content. It uses gamification and adaptive learning techniques to maintain engagement.',
-        coreFeatures: ['Personalized learning paths', 'Attention monitoring', 'Adaptive content delivery', 'Gamification elements', 'Progress analytics'],
-        tags: ['Education', 'AI', 'Personalization', 'Remote Learning'],
-        visual: '/images/ideas/remote-learning.jpg',
-        note: 'This solution addresses the unique challenges of remote learning while maintaining the flexibility and accessibility that makes it valuable.'
-    },
-    {
-        id: 'community-waste-reduction',
-        name: 'Community Waste Reduction',
-        sector: 'CleanTech',
-        status: 'live',
-        problemStatement: 'Communities generate excessive waste with limited recycling and reuse opportunities, leading to environmental degradation.',
-        solution: 'Community-driven platform that connects neighbors for waste sharing, recycling, and upcycling initiatives.',
-        whyItMatters: 'Reduces landfill waste, builds community connections, and promotes circular economy principles at the local level.',
-        howItWillWork: 'Residents can list items they want to give away, request items they need, or organize community recycling events. The platform includes gamification elements like community waste reduction challenges and rewards.',
-        coreFeatures: ['Item sharing marketplace', 'Community challenges', 'Recycling event coordination', 'Waste tracking', 'Local business partnerships'],
-        tags: ['Community', 'Sustainability', 'Circular Economy', 'Local Impact'],
-        visual: '/images/ideas/community-waste.jpg',
-        note: 'This platform leverages community engagement and gamification to create a collective impact on waste reduction while building stronger neighborhood connections.'
     }
 ];
 

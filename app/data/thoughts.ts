@@ -15,53 +15,34 @@ export interface Thought {
 
 export const thoughts: Thought[] = [
   {
-    id: 'twitter-1',
-    platform: 'twitter',
-    title: 'Design thinking in everyday life',
-    description: 'How design principles can be applied beyond the screen',
-    url: 'https://twitter.com/yourhandle/status/1234567890',
-    embedUrl: 'https://twitter.com/yourhandle/status/1234567890', // Twitter embed URL
-    publishedDate: '2024-01-15',
-    tags: ['Design', 'UX', 'Philosophy']
-  },
-  {
     id: 'medium-1',
     platform: 'medium',
-    title: 'The Art of Minimalism in Web Design',
-    description: 'Exploring how less can be more in modern web interfaces',
-    url: 'https://medium.com/@yourhandle/the-art-of-minimalism',
-    publishedDate: '2024-01-10',
-    tags: ['Design', 'Web Development', 'Minimalism']
+    title: 'Why/How a Vegetarian Could Technically Call Themselves “Non-Vegetarian”',
+    description: 'The linguistic and philosophical flaw of defining ourselves by a restriction we never agreed to follow.',
+    url: 'https://medium.com/@himanxusharma_86023/who-we-do-not-eat-non-veg-by-choice-are-free-to-say-or-identify-themselves-as-non-vegetarians-bdb8faa2691a',
+    publishedDate: '2026-04-14',
+    tags: ['Linguistics', 'Philosophy', 'Vegetarianism']
   },
-  {
-    id: 'youtube-1',
-    platform: 'youtube',
-    title: 'Building a Portfolio Website',
-    description: 'A walkthrough of creating a modern portfolio with Next.js',
-    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-    embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', // YouTube embed URL
-    publishedDate: '2024-01-05',
-    thumbnail: '/images/thoughts/youtube-thumb.jpg',
-    tags: ['Tutorial', 'Next.js', 'Web Development']
-  },
+  // {
+  //   id: 'youtube-1',
+  //   platform: 'youtube',
+  //   title: 'Building a Portfolio Website',
+  //   description: 'A walkthrough of creating a modern portfolio with Next.js',
+  //   url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  //   embedUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ', // YouTube embed URL
+  //   publishedDate: '2024-01-05',
+  //   thumbnail: '/images/thoughts/youtube-thumb.jpg',
+  //   tags: ['Tutorial', 'Next.js', 'Web Development']
+  // },
   {
     id: 'linkedin-1',
     platform: 'linkedin',
-    title: 'Career Reflections: Lessons Learned',
+    title: 'Honored to be the final-year major projects evaluator',
     description: 'Insights from my journey in tech and design',
-    url: 'https://www.linkedin.com/posts/himanshusharma08_career-tech-design-activity-1234567890',
-    publishedDate: '2024-01-01',
+    url: 'https://www.linkedin.com/posts/himanshusharma08_once-defending-projects-now-evaluating-activity-7462108060023595009-Zrgo?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAACoNW18B7s2DARdPDvSJGdVK0rrc6MhTPeM',
+    publishedDate: '2026-06-17',
     tags: ['Career', 'Tech', 'Growth']
   },
-  {
-    id: 'substack-1',
-    platform: 'substack',
-    title: 'Weekly Thoughts on Technology',
-    description: 'My weekly newsletter on tech trends and innovations',
-    url: 'https://yourhandle.substack.com/p/weekly-thoughts',
-    publishedDate: '2024-01-20',
-    tags: ['Newsletter', 'Technology', 'Trends']
-  }
 ];
 
 // Helper function to get all thoughts

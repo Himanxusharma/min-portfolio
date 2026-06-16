@@ -1,0 +1,22 @@
+---
+description: Never run git commands in this project
+alwaysApply: true
+---
+
+# No Git Operations
+
+Do not run any git commands or git-related processes in this project unless the user explicitly asks for a specific git operation in that message.
+
+## Forbidden
+
+- `git add`, `git commit`, `git push`, `git pull`, `git fetch`
+- `git status`, `git diff`, `git log`, `git branch`, `git checkout`, `git merge`, `git rebase`
+- Creating commits, branches, tags, or pull requests
+- Any other git workflow step, including read-only inspection
+
+## Required behavior
+
+- Make file changes directly; do not stage or commit them.
+- If git would normally help (status, diff, history), use non-git tools instead (Read, Grep, Glob).
+- If the user asks to save work, edit files only — do not commit or push.
+- If git is needed, ask the user to run the commands themselves unless they explicitly request a specific git command.

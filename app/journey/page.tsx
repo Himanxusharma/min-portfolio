@@ -28,8 +28,8 @@ export default function Journey() {
   const technicalSkills = getTechnicalSkills()
   const resumeDownload = getResumeDownload()
 
-  // 3D tilt handlers
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, id: string) => {
+  // 3D tilt handlers (higher intensity = subtler tilt)
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, id: string, intensity = 10) => {
     const card = e.currentTarget
     const rect = card.getBoundingClientRect()
     const x = e.clientX - rect.left
@@ -38,8 +38,8 @@ export default function Journey() {
     const centerX = rect.width / 2
     const centerY = rect.height / 2
     
-    const rotateX = (y - centerY) / 10 // Adjust tilt intensity
-    const rotateY = (centerX - x) / 10
+    const rotateX = (y - centerY) / intensity
+    const rotateY = (centerX - x) / intensity
     
     setTiltStyles(prev => ({
       ...prev,
@@ -99,8 +99,6 @@ export default function Journey() {
                   onMouseEnter={() => setActiveItem(index)}
                   onMouseLeave={() => setActiveItem(-1)}
                   style={{
-                    transform: `translateY(${-scrollY * 0.05}px)`,
-                    transition: 'transform 0.1s ease-out',
                     animationDelay: `${index * 200}ms`
                   }}
                 >
@@ -119,12 +117,12 @@ export default function Journey() {
                   {/* Enhanced content card - responsive padding and sizing */}
                   <div 
                     className="relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl md:hover:shadow-2xl hover:shadow-primary/10 group-hover:bg-background/80"
-                    onMouseMove={(e) => handleMouseMove(e, `exp-${index}`)}
+                    onMouseMove={(e) => handleMouseMove(e, `exp-${index}`, 28)}
                     onMouseLeave={() => handleMouseLeave(`exp-${index}`)}
                     style={{
-                      transform: `perspective(1000px) rotateX(${tiltStyles[`exp-${index}`]?.x || 0}deg) rotateY(${tiltStyles[`exp-${index}`]?.y || 0}deg) translateZ(0) scale(1.05)`,
+                      transform: `perspective(1000px) rotateX(${tiltStyles[`exp-${index}`]?.x || 0}deg) rotateY(${tiltStyles[`exp-${index}`]?.y || 0}deg)`,
                       transformStyle: 'preserve-3d',
-                      transition: 'transform 0.2s ease-out'
+                      transition: 'transform 0.25s ease-out'
                     }}
                   >
                     {/* Card glow effect */}

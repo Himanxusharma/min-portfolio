@@ -123,10 +123,10 @@ export default function Contact() {
               <div className="space-y-4">
                 <a
                   href="mailto:himanxusharmaa@gmail.com"
-                  className="group flex items-center space-x-3 p-3 rounded-lg bg-background/40 backdrop-blur-sm border border-border/30 hover:border-primary/50 text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  className="group flex items-center space-x-3 p-3 rounded-lg bg-background/40 backdrop-blur-sm border border-border/30 hover:border-red-500/40 text-muted-foreground hover:text-red-500 transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 >
-                  <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
-                    <Mail size={20} className="text-primary" />
+                  <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-red-500/10 transition-colors duration-300">
+                    <Mail size={20} className="text-primary group-hover:text-red-500 transition-colors duration-300" />
                   </div>
                   <span className="font-light">himanxusharmaa@gmail.com</span>
                 </a>
@@ -135,10 +135,10 @@ export default function Contact() {
                   href="https://github.com/Himanxusharma"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center space-x-3 p-3 rounded-lg bg-background/40 backdrop-blur-sm border border-border/30 hover:border-primary/50 text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  className="group flex items-center space-x-3 p-3 rounded-lg bg-background/40 backdrop-blur-sm border border-border/30 hover:border-neutral-500/40 text-muted-foreground hover:text-neutral-900 dark:hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 >
-                  <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
-                    <Github size={20} className="text-primary" />
+                  <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-neutral-500/10 transition-colors duration-300">
+                    <Github size={20} className="text-primary group-hover:text-neutral-900 dark:group-hover:text-white transition-colors duration-300" />
                   </div>
                   <span className="font-light">github.com/Himanxusharma</span>
                 </a>
@@ -147,10 +147,10 @@ export default function Contact() {
                   href="https://www.linkedin.com/in/himanshusharma08/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center space-x-3 p-3 rounded-lg bg-background/40 backdrop-blur-sm border border-border/30 hover:border-primary/50 text-muted-foreground hover:text-foreground transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                  className="group flex items-center space-x-3 p-3 rounded-lg bg-background/40 backdrop-blur-sm border border-border/30 hover:border-[#0A66C2]/40 text-muted-foreground hover:text-[#0A66C2] transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 >
-                  <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
-                    <Linkedin size={20} className="text-primary" />
+                  <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-[#0A66C2]/10 transition-colors duration-300">
+                    <Linkedin size={20} className="text-primary group-hover:text-[#0A66C2] transition-colors duration-300" />
                   </div>
                   <span className="font-light">linkedin.com/in/himanshusharma08</span>
                 </a>

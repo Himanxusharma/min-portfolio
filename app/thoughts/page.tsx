@@ -104,13 +104,16 @@ export default function Thoughts() {
 
   // Render embed based on platform
   const renderEmbed = (thought: Thought, embedTiltStyles: {x: number, y: number}) => {
+    const embedTiltX = embedTiltStyles.x * 0.45
+    const embedTiltY = embedTiltStyles.y * 0.45
+
     switch (thought.platform) {
       case 'twitter':
         return (
           <div 
-            className="w-full transition-transform duration-300 ease-out"
+            className="w-full transition-transform duration-500 ease-out"
             style={{
-              transform: `perspective(1000px) rotateX(${embedTiltStyles.x}deg) rotateY(${embedTiltStyles.y}deg) translateZ(10px)`,
+              transform: `perspective(1000px) rotateX(${embedTiltX}deg) rotateY(${embedTiltY}deg) translateZ(6px)`,
               transformStyle: 'preserve-3d'
             }}
           >
@@ -125,10 +128,10 @@ export default function Thoughts() {
       case 'youtube':
         return (
           <div 
-            className="relative w-full transition-transform duration-300 ease-out" 
+            className="relative w-full transition-transform duration-500 ease-out" 
             style={{ 
               paddingBottom: '56.25%',
-              transform: `perspective(1000px) rotateX(${embedTiltStyles.x}deg) rotateY(${embedTiltStyles.y}deg) translateZ(10px)`,
+              transform: `perspective(1000px) rotateX(${embedTiltX}deg) rotateY(${embedTiltY}deg) translateZ(6px)`,
               transformStyle: 'preserve-3d'
             }}
           >
@@ -144,9 +147,9 @@ export default function Thoughts() {
       case 'medium':
         return (
           <div
-            className="transition-transform duration-300 ease-out"
+            className="transition-transform duration-500 ease-out"
             style={{
-              transform: `perspective(1000px) rotateX(${embedTiltStyles.x}deg) rotateY(${embedTiltStyles.y}deg) translateZ(10px)`,
+              transform: `perspective(1000px) rotateX(${embedTiltX}deg) rotateY(${embedTiltY}deg) translateZ(6px)`,
               transformStyle: 'preserve-3d'
             }}
           >
@@ -162,9 +165,9 @@ export default function Thoughts() {
       case 'substack':
         return (
           <div
-            className="transition-transform duration-300 ease-out"
+            className="transition-transform duration-500 ease-out"
             style={{
-              transform: `perspective(1000px) rotateX(${embedTiltStyles.x}deg) rotateY(${embedTiltStyles.y}deg) translateZ(10px)`,
+              transform: `perspective(1000px) rotateX(${embedTiltX}deg) rotateY(${embedTiltY}deg) translateZ(6px)`,
               transformStyle: 'preserve-3d'
             }}
           >
@@ -187,7 +190,7 @@ export default function Thoughts() {
     }
   }
 
-  // 3D tilt handlers
+  // 3D tilt handlers — soft, slow response
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, thoughtId: string) => {
     const card = e.currentTarget
     const rect = card.getBoundingClientRect()
@@ -197,8 +200,8 @@ export default function Thoughts() {
     const centerX = rect.width / 2
     const centerY = rect.height / 2
     
-    const rotateX = (y - centerY) / 15
-    const rotateY = (centerX - x) / 15
+    const rotateX = (y - centerY) / 32
+    const rotateY = (centerX - x) / 32
     
     setTiltStyles(prev => ({
       ...prev,
@@ -362,13 +365,13 @@ export default function Thoughts() {
               {filteredThoughts.map((thought) => (
                 <div
                   key={thought.id}
-                  className="group relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl lg:rounded-2xl p-4 sm:p-6 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl lg:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 overflow-hidden"
+                  className="group relative bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl lg:rounded-2xl p-4 sm:p-6 hover:border-primary/40 hover:shadow-lg sm:hover:shadow-xl lg:hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 overflow-hidden"
                   onMouseMove={(e) => handleMouseMove(e, thought.id)}
                   onMouseLeave={() => handleMouseLeave(thought.id)}
                   style={{
-                    transform: `perspective(1000px) rotateX(${tiltStyles[thought.id]?.x || 0}deg) rotateY(${tiltStyles[thought.id]?.y || 0}deg) translateZ(0) scale(1.02)`,
+                    transform: `perspective(1000px) rotateX(${tiltStyles[thought.id]?.x || 0}deg) rotateY(${tiltStyles[thought.id]?.y || 0}deg) translateZ(0) scale(1.01)`,
                     transformStyle: 'preserve-3d',
-                    transition: 'transform 0.3s ease-out'
+                    transition: 'transform 0.55s ease-out'
                   }}
                 >
                   {/* Decorative gradient overlay */}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
+import { ExternalLink, Globe, Chrome } from 'lucide-react'
 import Navigation from '../../components/Navigation'
 import { getIdeaById } from '../../data/ideas'
 
@@ -100,6 +101,36 @@ export default function IdeaDetail() {
               ))}
             </div>
 
+            {/* Live product links */}
+            {idea.status === 'live' && idea.links && (
+              <div className="flex flex-wrap gap-3 mb-4 sm:mb-6">
+                {idea.links.website && (
+                  <a
+                    href={idea.links.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/link inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-all duration-300 hover:scale-105"
+                  >
+                    <Globe size={16} />
+                    <span>Visit Live Site</span>
+                    <ExternalLink size={14} className="opacity-70 group-hover/link:translate-x-0.5 transition-transform" />
+                  </a>
+                )}
+                {idea.links.chromeExtension && (
+                  <a
+                    href={idea.links.chromeExtension}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/link inline-flex items-center gap-2 px-4 py-2.5 bg-background/60 backdrop-blur-md border border-border/40 rounded-lg text-sm font-medium text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 hover:scale-105"
+                  >
+                    <Chrome size={16} />
+                    <span>Chrome Extension</span>
+                    <ExternalLink size={14} className="opacity-70 group-hover/link:translate-x-0.5 transition-transform" />
+                  </a>
+                )}
+              </div>
+            )}
+
             {/* Animated underline */}
             <div className="mt-4 flex justify-start">
               <div className="w-16 h-0.5 bg-gradient-to-r from-primary/50 to-accent/50 animate-pulse"></div>
@@ -180,7 +211,7 @@ export default function IdeaDetail() {
               <div className="absolute -left-4 top-0 w-1 h-8 bg-gradient-to-b from-primary to-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <h2 className="text-lg sm:text-xl lg:text-2xl font-medium text-foreground mb-3 sm:mb-4 group-hover:text-primary transition-colors duration-300 relative">
                 <span className="relative">
-                  How it will work
+                  How it {idea.status === 'live' ? 'works' : 'will work'}
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent group-hover:w-full transition-all duration-500"></div>
                 </span>
               </h2>
@@ -225,20 +256,49 @@ export default function IdeaDetail() {
               <div className="absolute -left-4 top-0 w-1 h-8 bg-gradient-to-b from-accent to-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <h2 className="text-lg sm:text-xl lg:text-2xl font-medium text-foreground mb-3 sm:mb-4 group-hover:text-primary transition-colors duration-300 relative">
                 <span className="relative">
-                  Visual / Mockup (Optional)
+                  {idea.status === 'live' ? 'Try it live' : 'Visual / Mockup (Optional)'}
                   <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-accent to-primary group-hover:w-full transition-all duration-500"></div>
                 </span>
               </h2>
               <div className="bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 group-hover:border-accent/20 group-hover:shadow-lg transition-all duration-300 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="aspect-video bg-muted/20 rounded-lg flex items-center justify-center relative z-10 group-hover:bg-muted/30 transition-colors duration-300">
-                  <div className="text-center">
-                    <svg className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-muted-foreground mx-auto mb-2 sm:mb-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <p className="text-muted-foreground text-sm sm:text-base group-hover:text-foreground/80 transition-colors duration-300">Visual mockup coming soon</p>
+                {idea.status === 'live' && idea.links ? (
+                  <div className="relative z-10 flex flex-col sm:flex-row gap-4 items-center justify-center py-8">
+                    {idea.links.website && (
+                      <a
+                        href={idea.links.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background rounded-lg text-sm font-light hover:bg-primary transition-all duration-300 hover:scale-105"
+                      >
+                        <Globe size={18} />
+                        Visit Website
+                        <ExternalLink size={14} />
+                      </a>
+                    )}
+                    {idea.links.chromeExtension && (
+                      <a
+                        href={idea.links.chromeExtension}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-lg text-sm font-light text-foreground hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 hover:scale-105"
+                      >
+                        <Chrome size={18} />
+                        Add to Chrome
+                        <ExternalLink size={14} />
+                      </a>
+                    )}
                   </div>
-                </div>
+                ) : (
+                  <div className="aspect-video bg-muted/20 rounded-lg flex items-center justify-center relative z-10 group-hover:bg-muted/30 transition-colors duration-300">
+                    <div className="text-center">
+                      <svg className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-muted-foreground mx-auto mb-2 sm:mb-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <p className="text-muted-foreground text-sm sm:text-base group-hover:text-foreground/80 transition-colors duration-300">Visual mockup coming soon</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

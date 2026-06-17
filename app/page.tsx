@@ -185,7 +185,7 @@ export default function Home() {
                 }}
               >
                 <a
-                  href="mailto:himanxusharmaa@gmail.com"
+                  href="mailto:himanxu.work@gmail.com"
                   className="group relative p-3 text-muted-foreground hover:text-red-500 transition-all duration-300 hover:scale-110"
                   title="Email"
                 >

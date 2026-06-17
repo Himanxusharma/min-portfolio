@@ -7,6 +7,7 @@ import { Mail, Github, Linkedin } from 'lucide-react'
 export default function Contact() {
   const [scrollY, setScrollY] = useState(0)
   const [result, setResult] = useState("")
+  const [isSuccess, setIsSuccess] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
 
@@ -23,10 +24,11 @@ export default function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
     setResult("")
+    setIsSuccess(false)
     
     const formData = new FormData(e.currentTarget)
     const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
-    const apiUrl = process.env.NEXT_PUBLIC_WEB3FORMS_API_URL
+    const apiUrl = process.env.NEXT_PUBLIC_WEB3FORMS_API_URL ?? 'https://api.web3forms.com/submit'
     
     if (!accessKey) {
       setResult("Configuration error: Please add Web3Forms access key to environment variables.")
@@ -34,13 +36,7 @@ export default function Contact() {
       return
     }
     
-    if (!apiUrl) {
-      setResult("Configuration error: Please add Web3Forms API URL to environment variables.")
-      setIsSubmitting(false)
-      return
-    }
-    
-    formData.append("access_key", accessKey)
+    formData.set("access_key", accessKey)
 
     try {
       const response = await fetch(apiUrl, {
@@ -50,17 +46,14 @@ export default function Contact() {
 
       const data = await response.json()
       
-      console.log("Web3Forms response:", data)
-      
       if (data && data.success === true) {
+        setIsSuccess(true)
         setResult("YEAAHH!!! Message sent. I'll get back to you soon.")
-        if (formRef.current) {
-          formRef.current.reset()
-        }
+        formRef.current?.reset()
       } else {
         setResult(data.message || "Something went wrong. Please try again.")
       }
-    } catch (error) {
+    } catch {
       setResult("An error occurred. Please try again later.")
     } finally {
       setIsSubmitting(false)
@@ -122,13 +115,13 @@ export default function Contact() {
               
               <div className="space-y-4">
                 <a
-                  href="mailto:himanxusharmaa@gmail.com"
+                  href="mailto:himanxu.work@gmail.com"
                   className="group flex items-center space-x-3 p-3 rounded-lg bg-background/40 backdrop-blur-sm border border-border/30 hover:border-red-500/40 text-muted-foreground hover:text-red-500 transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 >
                   <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-red-500/10 transition-colors duration-300">
                     <Mail size={20} className="text-primary group-hover:text-red-500 transition-colors duration-300" />
                   </div>
-                  <span className="font-light">himanxusharmaa@gmail.com</span>
+                  <span className="font-light">himanxu.work@gmail.com</span>
                 </a>
                 
                 <a
@@ -158,7 +151,13 @@ export default function Contact() {
             </div>
             
             {/* Contact Form */}
-            <form ref={formRef} onSubmit={onSubmit} className="space-y-6 p-6 rounded-2xl bg-background/40 backdrop-blur-md border border-border/30 shadow-xl relative overflow-hidden group">
+            <form
+              ref={formRef}
+              onSubmit={onSubmit}
+              action="https://api.web3forms.com/submit"
+              method="POST"
+              className="space-y-6 p-6 rounded-2xl bg-background/40 backdrop-blur-md border border-border/30 shadow-xl relative overflow-hidden group"
+            >
               {/* Decorative gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
@@ -173,7 +172,18 @@ export default function Contact() {
                 </h2>
               </div>
               
-              <div className="space-y-4">
+              <div className="space-y-4 relative">
+                {/* Web3Forms hidden fields */}
+                <input type="hidden" name="subject" value="New message from Himanshu Sharma Portfolio" />
+                <input type="hidden" name="from_name" value="Himanshu Sharma Portfolio" />
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+
                 <div>
                   <input
                     type="text"
@@ -221,18 +231,16 @@ export default function Contact() {
                 </button>
                 {result && (
                   <div className={`${
-                    result.includes('Message sent!') 
+                    isSuccess
                       ? 'bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20' 
-                      : result.includes('Something went wrong') || result.includes('error')
-                      ? 'bg-red-500/10 border border-red-500/20'
-                      : 'bg-primary/10 border border-primary/20'
-                  } rounded-lg px-4 py-3 animate-in slide-in-from-top-2 duration-300`}>
+                      : 'bg-red-500/10 border border-red-500/20'
+                  } rounded-lg px-4 py-3`}>
                     <div className={`flex items-center justify-center space-x-2 text-sm font-medium ${
-                      result.includes('Message sent!') 
+                      isSuccess
                         ? 'text-green-600 dark:text-green-400' 
                         : 'text-red-600 dark:text-red-400'
                     }`}>
-                      {result.includes('Message sent!') && (
+                      {isSuccess && (
                         <>
                           <svg className="w-5 h-5 animate-bounce text-green-500" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -243,7 +251,7 @@ export default function Contact() {
                           </svg>
                         </>
                       )}
-                      {!result.includes('Message sent!') && (
+                      {!isSuccess && (
                         <span>{result}</span>
                       )}
                     </div>

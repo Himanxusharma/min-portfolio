@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Navigation from '../components/Navigation'
 import { getAllIdeas } from '../data/ideas'
 
-export default function Ideas() {
+export default function Work() {
   const [scrollY, setScrollY] = useState(0)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedSector, setSelectedSector] = useState('')
@@ -117,31 +117,21 @@ export default function Ideas() {
               }}
             >
               <span className="relative inline-block">
-                Ideas
+                Work
                 <div className="absolute -bottom-1 sm:-bottom-2 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-1000 group-hover:w-full" 
                      style={{ width: `${Math.min(scrollY * 0.5, 100)}%` }} />
               </span>
             </h1>
             
-            {/* Sub Headline with name reveal */}
-            <h2 
-              className="text-sm sm:text-base md:text-lg font-light text-muted-foreground max-w-5xl mx-auto leading-relaxed group cursor-pointer mb-6 sm:mb-8 relative"
+            <p 
+              className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-4 relative mb-6 sm:mb-8"
               style={{
                 transform: `translateY(${-scrollY * 0.12}px)`,
                 transition: 'transform 0.1s ease-out'
               }}
             >
-              <span className="group-hover:text-foreground group-hover:text-2xl group-hover:font-semibold transition-all duration-300 relative group-hover:z-10 group-hover:drop-shadow-lg">H</span>idden{' '}
-              <span className="group-hover:text-foreground group-hover:text-2xl group-hover:font-semibold transition-all duration-300 relative group-hover:z-10 group-hover:drop-shadow-lg">i</span>deas{' '}
-              quietly{' '}
-              <span className="group-hover:text-foreground group-hover:text-2xl group-hover:font-semibold transition-all duration-300 relative group-hover:z-10 group-hover:drop-shadow-lg">m</span>ove{' '}
-              <span className="group-hover:text-foreground group-hover:text-2xl group-hover:font-semibold transition-all duration-300 relative group-hover:z-10 group-hover:drop-shadow-lg">a</span>nd{' '}
-              gently{' '}
-              <span className="group-hover:text-foreground group-hover:text-2xl group-hover:font-semibold transition-all duration-300 relative group-hover:z-10 group-hover:drop-shadow-lg">n</span>urture{' '}
-              <span className="group-hover:text-foreground group-hover:text-2xl group-hover:font-semibold transition-all duration-300 relative group-hover:z-10 group-hover:drop-shadow-lg">s</span>ilent{' '}
-              <span className="group-hover:text-foreground group-hover:text-2xl group-hover:font-semibold transition-all duration-300 relative group-hover:z-10 group-hover:drop-shadow-lg">h</span>uman{' '}
-              <span className="group-hover:text-foreground group-hover:text-2xl group-hover:font-semibold transition-all duration-300 relative group-hover:z-10 group-hover:drop-shadow-lg">u</span>niverses.
-            </h2>
+              What I build — live products, extensions, and tools shipped into the world.
+            </p>
             
             <p 
               className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2 sm:px-4 relative"
@@ -150,7 +140,7 @@ export default function Ideas() {
                 transition: 'transform 0.1s ease-out'
               }}
             >
-              Creative concepts, design explorations, and innovative solutions
+              From AI prompt engineering to developer browser utilities
             </p>
 
             {/* Animated underline */}
@@ -171,7 +161,7 @@ export default function Ideas() {
                 </div>
                 <input
                   type="text"
-                  placeholder="Search ideas by name, problem, or solution..."
+                  placeholder="Search work by name, problem, or solution..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-10 pr-4 py-3 bg-background/60 backdrop-blur-md border border-border/40 rounded-lg sm:rounded-xl focus:border-primary/50 focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all duration-300 text-sm sm:text-base"
@@ -271,8 +261,8 @@ export default function Ideas() {
               <div className="text-center mb-6">
                 <p className="text-sm text-muted-foreground">
                   {filteredIdeas.length === allIdeas.length 
-                    ? `Showing all ${allIdeas.length} ideas`
-                    : `Showing ${filteredIdeas.length} of ${allIdeas.length} ideas`
+                    ? `Showing all ${allIdeas.length} projects`
+                    : `Showing ${filteredIdeas.length} of ${allIdeas.length} projects`
                   }
                 </p>
               </div>
@@ -286,7 +276,7 @@ export default function Ideas() {
                 <svg className="w-16 h-16 sm:w-20 sm:h-20 text-muted-foreground mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
-                <h3 className="text-lg sm:text-xl font-medium text-foreground mb-2">No ideas found</h3>
+                <h3 className="text-lg sm:text-xl font-medium text-foreground mb-2">No projects found</h3>
                 <p className="text-muted-foreground mb-6">
                   Try adjusting your search terms or filters to find what you're looking for.
                 </p>
@@ -307,7 +297,7 @@ export default function Ideas() {
               {filteredIdeas.map((idea, index) => (
               <div
                 key={idea.id}
-                onClick={() => router.push(`/ideas/${idea.id}`)}
+                onClick={() => router.push(`/work/${idea.id}`)}
                 className="group cursor-pointer"
                 style={{
                   transform: `translateY(${-scrollY * 0.05}px)`,
@@ -419,7 +409,7 @@ export default function Ideas() {
                     
                     {/* Read More Indicator */}
                     <div className="flex items-center text-primary text-xs sm:text-sm font-medium group-hover:text-primary/80 transition-colors duration-300">
-                      <span className="group-hover:translate-x-1 transition-transform duration-300">Explore Idea</span>
+                      <span className="group-hover:translate-x-1 transition-transform duration-300">View Project</span>
                       <svg 
                         className="w-3 h-3 sm:w-4 sm:h-4 ml-1.5 sm:ml-2 group-hover:translate-x-1 transition-transform duration-300" 
                         fill="none" 

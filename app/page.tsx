@@ -145,7 +145,7 @@ export default function Home() {
                 }}
               >
                 <a
-                  href="/ideas"
+                  href="/work"
                   className="group/btn relative px-8 py-3 bg-foreground text-background font-light text-sm hover:bg-primary transition-all duration-300 transform hover:scale-105 overflow-hidden"
                 >
                   {/* Shimmer effect on hover */}
@@ -153,7 +153,7 @@ export default function Home() {
                   
                   {/* Content */}
                   <span className="relative z-10 flex items-center space-x-2">
-                    <span>Explore Ideas</span>
+                    <span>Explore Work</span>
                     <svg className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>

@@ -28,13 +28,13 @@ export default function IdeaDetail() {
         <Navigation />
         <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl font-light text-foreground mb-6">Idea Not Found</h1>
-            <p className="text-muted-foreground mb-8">The idea you're looking for doesn't exist.</p>
+            <h1 className="text-4xl font-light text-foreground mb-6">Project Not Found</h1>
+            <p className="text-muted-foreground mb-8">The project you're looking for doesn't exist.</p>
             <button
-              onClick={() => router.push('/ideas')}
+              onClick={() => router.push('/work')}
               className="px-6 py-3 bg-primary text-background font-medium hover:bg-primary/90 transition-colors duration-200"
             >
-              Back to Ideas
+              Back to Work
             </button>
           </div>
         </div>
@@ -57,7 +57,7 @@ export default function IdeaDetail() {
         <div className="max-w-4xl mx-auto relative">
           {/* Back Button */}
           <button
-            onClick={() => router.push('/ideas')}
+            onClick={() => router.push('/work')}
             className="flex items-center text-muted-foreground hover:text-foreground transition-all duration-300 mb-6 sm:mb-8 group"
           >
             <div className="flex items-center space-x-2">
@@ -66,7 +66,7 @@ export default function IdeaDetail() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </div>
-              <span className="text-sm sm:text-base group-hover:translate-x-1 transition-transform duration-300">Back to Ideas</span>
+              <span className="text-sm sm:text-base group-hover:translate-x-1 transition-transform duration-300">Back to Work</span>
             </div>
           </button>
 

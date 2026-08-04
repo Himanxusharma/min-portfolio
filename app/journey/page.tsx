@@ -142,17 +142,36 @@ export default function Journey() {
                       
                       {/* Enhanced achievements list - responsive spacing */}
                       <div className="space-y-2 sm:space-y-3 md:space-y-4">
-                        {exp.achievements.map((achievement, idx) => (
+                        {exp.achievements.map((achievement, idx) => {
+                          const isLinked = typeof achievement !== 'string'
+                          const text = isLinked ? achievement.text : achievement
+                          const href = isLinked ? achievement.href : undefined
+                          const linkText = isLinked ? achievement.linkText : undefined
+
+                          return (
                           <div key={idx} className="flex items-start space-x-2 sm:space-x-3 md:space-x-4 group/item">
                             <div className="relative flex-shrink-0 mt-1 sm:mt-1.5 md:mt-2">
                               <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 bg-primary rounded-full group-hover/item:scale-125 transition-transform duration-300" />
                               <div className="absolute inset-0 bg-primary/20 rounded-full opacity-0 group-hover/item:opacity-100 group-hover/item:scale-150 transition-all duration-300" />
                             </div>
                             <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed group-hover/item:text-foreground transition-colors duration-300">
-                              {achievement}
+                              {text}
+                              {href && (
+                                <>
+                                  {' '}
+                                  <a
+                                    href={href}
+                                    className="text-primary underline underline-offset-2 hover:text-foreground transition-colors duration-200"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    {linkText || href.replace('mailto:', '')}
+                                  </a>
+                                </>
+                              )}
                             </p>
                           </div>
-                        ))}
+                          )
+                        })}
                       </div>
                     </div>
                   </div>
@@ -325,19 +344,12 @@ export default function Journey() {
             </div>
           </div>
 
-          {/* Resume Download */}
+          {/* Resume / Contact CTAs */}
           <div className="text-center mt-8 sm:mt-12 md:mt-16">
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-              {/* Direct Download Button */}
-              <button 
-                onClick={() => {
-                  const link = document.createElement('a')
-                  link.href = resumeDownload.directDownload.path
-                  link.download = resumeDownload.directDownload.filename
-                  document.body.appendChild(link)
-                  link.click()
-                  document.body.removeChild(link)
-                }}
+              {/* Direct Download Button → mailto */}
+              <a
+                href="mailto:himanxusharma@gmail.com"
                 className="group relative inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 hover:border-primary/50 rounded-lg sm:rounded-xl md:rounded-2xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
               >
                 <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -357,13 +369,11 @@ export default function Journey() {
                   </svg>
                   <span>Download Resume</span>
                 </div>
-              </button>
+              </a>
 
-              {/* Google Drive Button */}
-              <button 
-                onClick={() => {
-                  window.open(resumeDownload.googleDrive.url, '_blank')
-                }}
+              {/* Google Drive Button → mailto */}
+              <a
+                href="mailto:himanxusharma@gmail.com"
                 className="group relative inline-flex items-center px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 hover:border-primary/50 rounded-lg sm:rounded-xl md:rounded-2xl font-medium text-xs sm:text-sm md:text-base transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
               >
                 <div className="absolute inset-0 rounded-lg sm:rounded-xl md:rounded-2xl bg-gradient-to-r from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -377,7 +387,7 @@ export default function Journey() {
                   </svg>
                   <span>{resumeDownload.googleDrive.label}</span>
                 </div>
-              </button>
+              </a>
             </div>
           </div>
 

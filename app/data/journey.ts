@@ -3,9 +3,15 @@ export interface ProfessionalExperience {
     company: string;
     position: string;
     period: string;
-    achievements: string[];
+    achievements: AchievementItem[];
     icon?: string;
 }
+
+export type AchievementItem = string | {
+    text: string;
+    href?: string;
+    linkText?: string;
+};
 
 export interface Education {
     id: string;
@@ -41,11 +47,15 @@ export const professionalExperience: ProfessionalExperience[] = [
         position: 'Software Developer',
         period: 'Feb 2023 - Present',
         achievements: [
-            'Integrated Scan To Pay (Cash Provider) Payment Method using Java & Spring Boot, expanding transaction processing coverage by 20% across 597M+ annual payments, deployed in Dockerized microservices on Kubernetes.',
-            'Led the design and implementation of the Recurring Maintenance Mode System for Paymentus, a major product feature developed from scratch that reduced system downtime by 25% and automated 100 hours of manual maintenance tasks monthly, significantly contributing to a platform trusted by over 25 Fortune 500 companies.',
-            'Designed and developed a Dynamic Payments Report & Analysis page that allows users to filter and search transaction reports, presenting the results through interactive charts and data tables for enhanced data visualisation and analysis.',
-            'Optimised report generation in microservices by integrating Snowflake, reducing execution time by 23% and performance, recognised by the Director of Product Development, Paymentus.',
-            'Mid Level Implementation Tickets Delivered ~10.25 tickets/month (80% above average) with consistent quality, ranking among top contributors, demonstrating a commitment to delivering both quantity and quality within a high-volume payment processing environment.'
+            'Paymentus Core Product: Enhanced and maintained core payment platform features serving 2,500+ billers, tens of millions of consumers, and powering 724M+ payment transactions across North America and other regions.',
+            'Green Dot (Cash Payments): Developed and integrated a Scan-to-Pay payment method, enabling cash bill payments, handling 5,000+ daily transactions, and expanding payment coverage by 20% across a 724M+ annual transaction ecosystem.',
+            'Owned features end-to-end, collaborating with architects, senior engineers, product owners, and QA from requirements and design to deployment and production support.',
+            'Accelerated feature delivery by 80% while maintaining 99.9% system stability through JUnit-based test coverage improvements and structured peer code reviews.',
+            {
+                text: 'Interested? Want to see more? Leave me a mail on',
+                href: 'mailto:himanxusharma@gmail.com',
+                linkText: 'himanxusharma@gmail.com',
+            },
         ]
     },
     {
